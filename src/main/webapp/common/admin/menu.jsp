@@ -18,9 +18,9 @@
     </a>
 
     <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="<c:url value="/admin/Products/product-list"/>">
             <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+            <span>Quản lý sản phẩm </span></a>
     </li>
 
     <!-- Divider -->

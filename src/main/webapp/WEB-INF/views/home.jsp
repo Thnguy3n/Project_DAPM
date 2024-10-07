@@ -716,7 +716,7 @@
             <div class="col-xl-3 col-md-6 col-12">
               <div class="footer-infor">
                 <div class="footer-logo">
-                  <a href="index.html">
+                  <a href="#">
                     <img src="images/logo/logo.svg" alt="">
                   </a>
                 </div>

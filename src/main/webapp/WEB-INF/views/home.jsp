@@ -56,7 +56,7 @@
             <div class="swiper-slide" style="height: max-content">
               <div class="collection-item-circle has-bg hover-img" >
                 <a href="shop-collection-sub.html" class="collection-image img-style">
-                  <img class="lazyload" data-src="images/collections/new-releases.png" alt="collection-img" src="images/collections/new-releases.png">
+                  <img class="lazyload" alt="collection-img" src="https://theme.hstatic.net/200000690725/1001078549/14/home_category_7_img.jpg?v=536">
                 </a>
                 <div class="collection-content text-center">
                   <a href="shop-collection-sub.html" class="link title fw-6">Áo thun</a>
@@ -66,7 +66,7 @@
             <div class="swiper-slide" style="height: max-content">
               <div class="collection-item-circle has-bg hover-img" >
                 <a href="shop-collection-sub.html" class="collection-image img-style">
-                  <img class="lazyload" data-src="images/collections/best-deals.png" alt="collection-img" src="images/collections/best-deals.png">
+                  <img class="lazyload" alt="collection-img" src="https://theme.hstatic.net/200000690725/1001078549/14/home_category_1_img.jpg?v=536">
                 </a>
                 <div class="collection-content text-center">
                   <a href="shop-collection-sub.html" class="link title fw-6">Áo khoác</a>
@@ -76,7 +76,7 @@
             <div class="swiper-slide" style="height: max-content">
               <div class="collection-item-circle has-bg hover-img" >
                 <a href="shop-collection-sub.html" class="collection-image img-style">
-                  <img class="lazyload" data-src="images/collections/collection-circle-14.png" alt="collection-img" src="images/collections/collection-circle-14.png">
+                  <img class="lazyload" alt="collection-img" src="https://theme.hstatic.net/200000690725/1001078549/14/home_category_5_img.jpg?v=536">
                 </a>
                 <div class="collection-content text-center">
                   <a href="shop-collection-sub.html" class="link title fw-6">Quần tây</a>
@@ -86,7 +86,7 @@
             <div class="swiper-slide" style="height: max-content">
               <div class="collection-item-circle has-bg hover-img">
                 <a href="shop-collection-sub.html" class="collection-image img-style">
-                  <img class="lazyload" data-src="images/collections/collection-circle-15.png" alt="collection-img" src="images/collections/collection-circle-15.png">
+                  <img class="lazyload" alt="collection-img" src="https://theme.hstatic.net/200000690725/1001078549/14/home_category_3_img.jpg?v=536">
                 </a>
                 <div class="collection-content text-center">
                   <a href="shop-collection-sub.html" class="link title fw-6">Quần Jean</a>
@@ -774,7 +774,7 @@
             </div>
             <div class="col-xl-3 col-md-6 col-12 footer-col-block">
               <div class="footer-heading footer-heading-desktop">
-                <h6>About us</h6>
+                <h6>Về chúng tôi</h6>
               </div>
               <div class="footer-heading footer-heading-moblie">
                 <h6>Về chúng tôi</h6>
@@ -1468,7 +1468,7 @@
   <div class="canvas-wrapper">
     <header class="tf-search-head">
       <div class="title fw-5">
-        Search our site
+        Tìm kiếm trên trang của chúng tôi
         <div class="close">
           <span class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></span>
         </div>
@@ -1476,80 +1476,12 @@
       <div class="tf-search-sticky">
         <form class="tf-mini-search-frm">
           <fieldset class="text">
-            <input type="text" placeholder="Search" class="" name="text" tabindex="0" value="" aria-required="true" required="">
+            <input type="text" placeholder="Tìm kiếm" class="" name="text" tabindex="0" value="" aria-required="true" required="">
           </fieldset>
           <button class="" type="submit"><i class="icon-search"></i></button>
         </form>
       </div>
     </header>
-    <div class="canvas-body p-0">
-      <div class="tf-search-content">
-        <div class="tf-cart-hide-has-results">
-          <div class="tf-col-quicklink">
-            <div class="tf-search-content-title fw-5">Quick link</div>
-            <ul class="tf-quicklink-list">
-              <li class="tf-quicklink-item">
-                <a href="shop-default.html" class="">Fashion</a>
-              </li>
-              <li class="tf-quicklink-item">
-                <a href="shop-default.html" class="">Men</a>
-              </li>
-              <li class="tf-quicklink-item">
-                <a href="shop-default.html" class="">Women</a>
-              </li>
-              <li class="tf-quicklink-item">
-                <a href="shop-default.html" class="">Accessories</a>
-              </li>
-            </ul>
-          </div>
-          <div class="tf-col-content">
-            <div class="tf-search-content-title fw-5">Need some inspiration?</div>
-            <div class="tf-search-hidden-inner">
-              <div class="tf-loop-item">
-                <div class="image">
-                  <a href="product-detail.html">
-                    <img src="images/products/white-3.jpg" alt="">
-                  </a>
-                </div>
-                <div class="content">
-                  <a href="product-detail.html">Cotton jersey top</a>
-                  <div class="tf-product-info-price">
-                    <div class="compare-at-price">$10.00</div>
-                    <div class="price-on-sale fw-6">$8.00</div>
-                  </div>
-                </div>
-              </div>
-              <div class="tf-loop-item">
-                <div class="image">
-                  <a href="product-detail.html">
-                    <img src="images/products/white-2.jpg" alt="">
-                  </a>
-                </div>
-                <div class="content">
-                  <a href="product-detail.html">Mini crossbody bag</a>
-                  <div class="tf-product-info-price">
-                    <div class="price fw-6">$18.00</div>
-                  </div>
-                </div>
-              </div>
-              <div class="tf-loop-item">
-                <div class="image">
-                  <a href="product-detail.html">
-                    <img src="images/products/white-1.jpg" alt="">
-                  </a>
-                </div>
-                <div class="content">
-                  <a href="product-detail.html">Oversized Printed T-shirt</a>
-                  <div class="tf-product-info-price">
-                    <div class="price fw-6">$18.00</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 <!-- /canvasSearch -->
@@ -1879,7 +1811,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="header">
-        <div class="title fw-5">Shopping cart</div>
+        <div class="title fw-5">Giỏ hàng</div>
         <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
       </div>
       <div class="wrap">
@@ -1888,7 +1820,7 @@
             <span style="width: 50%;"></span>
           </div>
           <div class="tf-progress-msg">
-            Buy <span class="price fw-6">$75.00</span> more to enjoy <span class="fw-6">Free Shipping</span>
+            Mua thêm<span class="price fw-6">$75.00</span> để được hưởng <span class="fw-6">Miễn phí Vận chuyển</span>
           </div>
         </div>
         <div class="tf-mini-cart-wrap">
@@ -1997,10 +1929,10 @@
             </div>
             <div class="tf-mini-cart-bottom-wrap">
               <div class="tf-cart-totals-discounts">
-                <div class="tf-cart-total">Subtotal</div>
+                <div class="tf-cart-total">Tổng cộng</div>
                 <div class="tf-totals-total-value fw-6">$49.99 USD</div>
               </div>
-              <div class="tf-cart-tax">Taxes and <a href="#">shipping</a> calculated at checkout</div>
+              <div class="tf-cart-tax">Thuế và <a href="#">phí vận chuyển</a> được tính khi thanh toán</div>
               <div class="tf-mini-cart-line"></div>
               <div class="tf-cart-checkbox">
                 <div class="tf-checkbox-wrapp">
@@ -2010,13 +1942,13 @@
                   </div>
                 </div>
                 <label for="CartDrawer-Form_agree">
-                  I agree with the
-                  <a href="#" title="Terms of Service">terms and conditions</a>
+                  Tôi đồng ý với
+                  <a href="#" title="Terms of Service">các điều khoản và điều kiện</a>
                 </label>
               </div>
               <div class="tf-mini-cart-view-checkout">
-                <a href="view-cart.html" class="tf-btn btn-outline radius-3 link w-100 justify-content-center">View cart</a>
-                <a href="checkout.html" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Check out</span></a>
+                <a href="view-cart.html" class="tf-btn btn-outline radius-3 link w-100 justify-content-center">Xem giỏ hàng</a>
+                <a href="checkout.html" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Thanh toán</span></a>
               </div>
             </div>
           </div>

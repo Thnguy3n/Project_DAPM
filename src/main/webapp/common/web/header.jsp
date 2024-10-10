@@ -35,8 +35,9 @@
                             <a href="<c:url value="/category-Pants"/>" class="item-link">Quần nam</a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="item-link">Giới thiệu</a>
+                            <a href="<c:url value="/category-Pants"/>" class="item-link">Giới thiệu</a>
                         </li>
+
                     </ul>
                 </nav>
             </div>

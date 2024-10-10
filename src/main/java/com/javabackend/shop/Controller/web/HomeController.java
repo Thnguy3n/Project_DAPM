@@ -18,23 +18,24 @@ public class HomeController {
         return mav;
 
     }
-
     @RequestMapping(value = "/product-category", method = RequestMethod.GET)
     public ModelAndView productCategoryPage() {
         ModelAndView mav = new ModelAndView("web/productCategory");
         return mav;
     }
-
     @RequestMapping(value = "/category-Tee", method = RequestMethod.GET)
     public ModelAndView CategoryTeePage() {
         ModelAndView mav = new ModelAndView("web/Cate1");
         return mav;
     }
-
     @RequestMapping(value = "/category-Pants", method = RequestMethod.GET)
     public ModelAndView CategoryPantsPage() {
         ModelAndView mav = new ModelAndView("web/Cate2");
         return mav;
     }
-
+    @RequestMapping(value = "/product-Detail", method = RequestMethod.GET)
+    public ModelAndView ProductDetailPage() {
+        ModelAndView mav = new ModelAndView("web/productDetail");
+        return mav;
+    }
 }

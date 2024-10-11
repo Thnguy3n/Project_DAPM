@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="col-xl-3 col-md-4 col-6">
-                <a href="index.html" class="logo-header">
+                <a href="<c:url value="/trang-chu"/>" class="logo-header">
                     <img src="images/logo/logo.svg" alt="logo" class="logo">
                 </a>
             </div>
@@ -51,4 +51,132 @@
             </div>
         </div>
     </div>
+
 </header>
+<!-- modal login -->
+<div class="modal modalCentered fade form-sign-in modal-part-content" id="login">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="header">
+        <div class="demo-title">Log in</div>
+        <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+      </div>
+      <div class="tf-login-form">
+        <c:if test="${param.incorrectAccount != null}">
+          <div class="alert alert-danger">
+            Username or password incorrect
+          </div>
+        </c:if>
+        <c:if test="${param.accessDenied != null}">
+          <div class="alert alert-danger">
+            You Not authorize
+          </div>
+        </c:if>
+        <c:if test="${param.sessionTimeout != null}">
+          <div class="alert alert-danger">
+            Session Timeout
+          </div>
+        </c:if>
+        <form class="" action="j_spring_security_check" id="formLogin" accept-charset="utf-8" method="post">
+          <div class="tf-field style-1">
+            <input class="tf-field-input tf-input" placeholder=" " type="text" id="userName" name="j_username">
+            <label class="tf-field-label">User name *</label>
+          </div>
+          <div class="tf-field style-1">
+            <input class="tf-field-input tf-input" placeholder=" " type="text" id="password"  name="j_password">
+            <label class="tf-field-label" >Password *</label>
+          </div>
+          <div>
+            <a href="#forgotPassword" data-bs-toggle="modal" class="btn-link link">Forgot your password?</a>
+          </div>
+          <div class="bottom">
+            <div class="w-100">
+              <button type="submit" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Log in</span></button>
+            </div>
+            <div class="w-100">
+              <a href="#register" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">
+                New customer? Create your account
+                <i class="icon icon-arrow1-top-left"></i>
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal modalCentered fade form-sign-in modal-part-content" id="forgotPassword">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="header">
+        <div class="demo-title">Reset your password</div>
+        <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+      </div>
+      <div class="tf-login-form">
+        <form class="">
+          <div>
+            <p>Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails</p>
+          </div>
+          <div class="tf-field style-1">
+            <input class="tf-field-input tf-input" placeholder=" " type="email"  name="">
+            <label class="tf-field-label" for="">Email *</label>
+          </div>
+          <div>
+            <a href="#login" data-bs-toggle="modal" class="btn-link link">Cancel</a>
+          </div>
+          <div class="bottom">
+            <div class="w-100">
+              <button type="submit" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Reset password</span></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal modalCentered fade form-sign-in modal-part-content" id="register">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="header">
+        <div class="demo-title">Register</div>
+        <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+      </div>
+      <div class="tf-login-form">
+        <form class="">
+          <div class="tf-field style-1">
+            <input class="tf-field-input tf-input" placeholder=" " type="text"  name="username" id="username">
+            <label class="tf-field-label" >User name</label>
+          </div>
+          <div class="tf-field style-1">
+            <input class="tf-field-input tf-input" placeholder=" " type="text"  name="fullname" id="fullname">
+            <label class="tf-field-label" >Full name</label>
+          </div>
+          <div class="tf-field style-1">
+            <input class="tf-field-input tf-input" placeholder=" " type="email"  name="email" id="email">
+            <label class="tf-field-label" >Email *</label>
+          </div>
+          <div class="tf-field style-1">
+            <input class="tf-field-input tf-input" placeholder=" " type="text"  name="phone" id="phone">
+            <label class="tf-field-label" >Phone Number *</label>
+          </div>
+          <div class="tf-field style-1">
+            <input class="tf-field-input tf-input" placeholder=" " type="password"  name="password" id="password">
+            <label class="tf-field-label" >Password *</label>
+          </div>
+          <div class="bottom">
+            <div class="w-100">
+              <a href="register.html" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span></a>
+            </div>
+            <div class="w-100">
+              <a href="#login" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">
+                Already have an account? Log in here
+                <i class="icon icon-arrow1-top-left"></i>
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /modal login -->

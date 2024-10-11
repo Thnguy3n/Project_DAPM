@@ -10,12 +10,10 @@ public class SupplierEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="map")
-    private String map;
     @Column(name="productName")
     private String productName;
     @Column(name="quantity")
-    private String quantity;
+    private Integer quantity;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "supplierEntity")
     List<ProductEntity> productEntities=new ArrayList<>();
 
@@ -29,14 +27,6 @@ public class SupplierEntity extends BaseEntity {
         this.id = id;
     }
 
-    public String getMap() {
-        return map;
-    }
-
-    public void setMap(String map) {
-        this.map = map;
-    }
-
     public String getProductName() {
         return productName;
     }
@@ -45,11 +35,11 @@ public class SupplierEntity extends BaseEntity {
         this.productName = productName;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

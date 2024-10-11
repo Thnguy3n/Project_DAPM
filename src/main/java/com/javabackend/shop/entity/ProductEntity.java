@@ -19,17 +19,41 @@ public class ProductEntity extends BaseEntity {
     @Column(name = "image")
     private String image;
     @Column(name = "inventory")
-    private int inventory;
+    private Integer inventory;
     @Column(name = "description")
     private String description;
     @Column(name = "deleted")
     private Integer deleted;
+
     @ManyToOne
-    @JoinColumn(name ="categoryId")
-    private CategoryEntity category;
+    @JoinColumn(name = "categoryId")
+    private CategoryEntity categoryEntity;
+
     @ManyToOne
     @JoinColumn(name ="supplierId")
     private SupplierEntity supplierEntity;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
+    List<CartEntity> cartEntities=new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
+    List<GaleryEntity> galeryEntities=new ArrayList<>();
+
+    public List<GaleryEntity> getGaleryEntities() {
+        return galeryEntities;
+    }
+
+    public void setGaleryEntities(List<GaleryEntity> galeryEntities) {
+        this.galeryEntities = galeryEntities;
+    }
+
+    public List<CartEntity> getCartEntities() {
+        return cartEntities;
+    }
+
+    public void setCartEntities(List<CartEntity> cartEntities) {
+        this.cartEntities = cartEntities;
+    }
 
     @Override
     public Long getId() {
@@ -97,12 +121,16 @@ public class ProductEntity extends BaseEntity {
         this.deleted = deleted;
     }
 
-    public CategoryEntity getCategory() {
-        return category;
+    public void setInventory(Integer inventory) {
+        this.inventory = inventory;
     }
 
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
+    public CategoryEntity getCategoryEntity() {
+        return categoryEntity;
+    }
+
+    public void setCategoryEntity(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
     }
 
     public SupplierEntity getSupplierEntity() {

@@ -9,10 +9,10 @@ import java.io.IOException;
 @Component
 public class UploadFileUtils {
     public void writeOrUpdate(String path, byte[] bytes) {
-        path = "C://home/DAPM" + path;
+        path = "C://home/office" + path;
         File file = new File(StringUtils.substringBeforeLast(path, "/"));
         if (!file.exists()) {
-            file.mkdir();
+            file.mkdirs();
         }
         try (FileOutputStream fop = new FileOutputStream(path)) {
             fop.write(bytes);

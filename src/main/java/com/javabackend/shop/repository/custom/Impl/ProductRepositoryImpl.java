@@ -50,12 +50,20 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
             ex.printStackTrace();
         }
     }
-
+    public static void specialQuery(ProductRequest productRequest, StringBuilder where){
+        Long categoryId = productRequest.getCategoryId();
+        if(categoryId != null){
+            where.append(" AND EXITS (SELECT * FROM category c WHERE p.category_id = c.id " );
+            where.append(" AND c.id = "+categoryId );
+            where.append(" ) ");
+        }
+    }
     @Override
     public List<ProductEntity> findAll(ProductRequest productRequest) {
         StringBuilder sql = new StringBuilder("Select * From product p ");
         StringBuilder where = new StringBuilder(" where 1 = 1  ");
         queryNormal(productRequest, where);
+        specialQuery(productRequest,where);
         sql.append(where);
         Query query = entityManager.createNativeQuery(sql.toString(), ProductEntity.class);
         return query.getResultList();

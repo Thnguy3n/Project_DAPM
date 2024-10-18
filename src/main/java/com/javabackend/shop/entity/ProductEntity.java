@@ -26,11 +26,11 @@ public class ProductEntity extends BaseEntity {
     private Integer deleted;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
 
     @ManyToOne
-    @JoinColumn(name ="supplierId")
+    @JoinColumn(name ="supplier_id")
     private SupplierEntity supplierEntity;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
@@ -38,6 +38,14 @@ public class ProductEntity extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
     List<GaleryEntity> galeryEntities=new ArrayList<>();
+
+    public String getCategoryName() {
+        return categoryEntity != null ? categoryEntity.getName() : null;
+    }
+
+    public String getSupplierName() {
+        return supplierEntity != null ? supplierEntity.getProductName() : null;
+    }
 
     public List<GaleryEntity> getGaleryEntities() {
         return galeryEntities;

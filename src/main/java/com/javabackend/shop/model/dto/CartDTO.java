@@ -1,22 +1,11 @@
-package com.javabackend.shop.entity;
+package com.javabackend.shop.model.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "cart")
-public class CartEntity extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CartDTO extends AbstractDTO{
     private Long id;
-    @Column(name = "price")
     private String price;
-    @Column(name = "quantity")
     private Integer quantity;
-    @Column(name = "totalPrice")
     private Double totalPrice;
-    @ManyToOne
-    @JoinColumn(name ="product_id")
-    private ProductEntity productEntity;
+    private Long productId;
 
     @Override
     public Long getId() {
@@ -52,11 +41,11 @@ public class CartEntity extends BaseEntity{
         this.totalPrice = totalPrice;
     }
 
-    public ProductEntity getProductEntity() {
-        return productEntity;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProductEntity(ProductEntity productEntity) {
-        this.productEntity = productEntity;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 }

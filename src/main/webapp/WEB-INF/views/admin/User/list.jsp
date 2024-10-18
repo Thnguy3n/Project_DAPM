@@ -1,30 +1,33 @@
 <%--
   Created by IntelliJ IDEA.
   User: HP
-  Date: 10/6/2024
-  Time: 3:38 PM
+  Date: 10/13/2024
+  Time: 9:51 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/common/tablist.jsp" %>
 <%@ page import="com.javabackend.shop.security.utils.SecurityUtils" %>
-<c:url var="productListURL" value="/admin/product-list"/>
-<c:url var="productAPI" value="/api/product"/>
-
-<!-- Content Wrapper -->
+<c:url var="formUrl" value="/admin/user-list"/>
+<c:url var="userAPI" value="/api/user"/>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
-        <form:form modelAttribute="productRequest" id="listForm" method="GET" var="item">
-            <!-- Topbar -->
+        <form:form modelAttribute="model" action="${formUrl}" id="listForm" method="GET">
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                 <!-- Topbar Search -->
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                               aria-label="Search" aria-describedby="basic-addon2">
+                        <form:input path="searchValue" cssClass="form-control bg-light border-0 small"
+                                    placeholder="Search for..."
+                                    aria-label="Search" aria-describedby="basic-addon2"/>
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button" id="btnSearchProduct">
+                            <button class="btn btn-primary" type="button" id="btnSearch">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -82,43 +85,54 @@
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=SecurityUtils.getPrincipal().getFullName()%></span>
-                            <img class="img-profile rounded-circle"
-                                 src="img/undraw_profile.svg">
+                            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                        </div>
+                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
                     </li>
                 </ul>
             </nav>
-            <!-- End of Topbar -->
 
-            <!-- Begin Page Content -->
             <div class="container-fluid">
-                <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Quản lý sản phẩm</h1>
-                <!-- DataTales Example -->
+                <h1 class="h3 mb-2 text-gray-800">Quản lý tài khoản </h1>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Danh sách tài khoản</h6>
                     </div>
                     <div class="card-header py-3">
-                        <h6 class="m-0 ">
-                            <a href="/admin/product-edit" class="btn btn-success btn-icon-split">
-                                <span class="text">Thêm mới sản phẩm </span>
-                            </a></h6>
+                        <a flag="info"
+                           class="dt-button buttons-colvis btn btn-white btn-primary btn-bold"
+                           data-toggle="tooltip"
+                            <%--title='<spring:message code="label.user.add"/>'--%>
+                           title="Thêm người dùng"
+                           href='<c:url value="/admin/user-edit"/>'>
+                            <span>
+                                <i class="fa fa-plus-circle bigger-110 purple"></i>
+                            </span>
+                        </a>
+                        <button id="btnDelete" type="button" disabled
+                                class="dt-button buttons-html5 btn btn-white btn-primary btn-bold"
+                                data-toggle="tooltip"
+                                title="Xóa bài viết" onclick="warningBeforeDelete()">
+                            <span>
+                                <i class="fa-solid fa-trash"></i>
+                            </span>
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <display:table name="product" cellspacing="0" cellpadding="0" requestURI="${productListURL}"
-                                           id="tableList"
+                            <display:table name="model.listResult" cellspacing="0" cellpadding="0"
+                                           requestURI="${formUrl}" partialList="true" sort="external"
+                                           size="${model.totalItems}" defaultsort="2" defaultorder="ascending"
+                                           id="tableList" pagesize="${model.maxPageItems}"
+                                           export="false"
                                            class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
-                                           style="margin: 3em 0 1.5em;"
-                            >
+                                           style="margin: 3em 0 1.5em;">
                                 <display:column title="<fieldset class='form-group'>
 												        <input type='checkbox' id='checkAll' class='check-box-element'>
 												        </fieldset>" class="center select-cell"
@@ -128,40 +142,29 @@
                                                id="checkbox_${tableList.id}" class="check-box-element"/>
                                     </fieldset>
                                 </display:column>
-                                <display:column headerClass="text-left" property="title" title="Tên sản phẩm"/>
-                                <display:column headerClass="text-left" property="categoryName" title="Danh mục"/>
-                                <display:column headerClass="text-left" property="inventory" title="Hàng tồn kho"/>
-                                <display:column headerClass="text-left" property="supplierName" title="Nhà cung cấp"/>
-                                <display:column headerClass="text-left" title="Giảm giá">
-                                    <c:out value="${tableList.discount}"/>%
-                                </display:column>
-                                <<display:column headerClass="text-left" title="Giá tiền">
-                                <c:out value="${tableList.price}"/> VNĐ
-                            </display:column>
-                                <display:column title="Thao tác">
-                                    <a href="/admin/product-edit-${tableList.id}">
-                                        <button class="btn btn-xs btn-info">
-                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                        </button>
-                                    </a>
-                                    <button class="btn btn-xs btn-danger" title="Xóa sản phẩm"
-                                            onclick="deleteProduct(${tableList.id})">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                <display:column headerClass="text-left" property="userName" title="Tên"/>
+                                <display:column headerClass="text-left" property="fullName" title="full name"/>
+                                <display:column headerClass="col-actions" title="Thao tác">
+                                    <c:if test="${tableList.roleCode != 'MANAGER'}">
+                                        <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
+                                           title="Cập nhật người dùng"
+                                           href='<c:url value="/admin/user-edit-${tableList.id}"/>'>
+                                            <i class="ace-icon fa fa-pencil bigger-120" aria-hidden="true"></i>
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${tableList.roleCode == 'MANAGER'}">
+                                        <p>Không đươc thao tác</p>
+                                    </c:if>
                                 </display:column>
                             </display:table>
-                            <input type="hidden" name="Product" id="productId" value="">
                         </div>
                     </div>
                 </div>
-
             </div>
-            <!-- /.container-fluid -->
+
+
         </form:form>
-
-
     </div>
-    <!-- Footer -->
     <footer class="sticky-footer bg-white">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
@@ -169,49 +172,48 @@
             </div>
         </div>
     </footer>
-    <!-- End of Footer -->
-
 </div>
-<!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-<script>
-    $('#btnSearchProduct').click(function (e) {
-        e.preventDefault();
-        $('#listForm').submit()
+<script type="text/javascript">
+    $(document).ready(function () {
+        var someJsVar = "<c:out value='${addOrEditNews}'/>";
+        $('#btnSearch').click(function () {
+            $('#listForm').submit();
+        });
+    });
+    $(document).ready(function () {
+        // Kích hoạt nút delete khi có ít nhất một checkbox được chọn
+        $('input[name="checkList"]').on('change', function () {
+            var isAnyChecked = $('input[name="checkList"]:checked').length > 0;
+            $('#btnDelete').prop('disabled', !isAnyChecked);
+        });
     });
 
-    function deleteProduct(id) {
-        var productId = [id];
-        deleteProducts(productId);
-    };
+    function warningBeforeDelete() {
+        showAlertBeforeDelete(function () {
+            var dataArray = $('tbody input[type=checkbox]:checked').map(function () {
+                return $(this).val();
+            }).get();
+            deleteUser(dataArray);
+        });
+    }
 
-    $('#btnDeleteProduct').click(function (e) {
-        e.preventDefault();
-        var data = {};
-        data['productId'] = $('#productId').val();
-        var productIds = $('#tableList').find('tbody input[type = checkbox]:checked').map(function () {
-            return $(this).val();
-        }).get();
-        deleteProducts(productIds);
-    });
 
-    function deleteProducts(data) {
+    function deleteUser(data) {
         $.ajax({
-            type: "DELETE",
-            url: "${productAPI}/" + data,
+            url: '${userAPI}/',
+            type: 'DELETE',
+            dataType: 'json',
+            contentType: 'application/json',
             data: JSON.stringify(data),
-            contentType: "application/json",
-            dataType: "JSON",
-            success: function (respond) {
-                console.log("Success");
+            success: function (res) {
+                window.location.href = "<c:url value='/admin/user-list?message=delete_success'/>";
             },
-            error: function (respond) {
-                console.log("fail");
-                window.location.href = "<c:url value="/admin/product-list?message=success"/> ";
+            error: function (res) {
+                console.log(res);
+                window.location.href = "<c:url value='/admin/user-list?message=error_system'/>";
             }
         });
     }
 </script>
-
+</body>
+</html>

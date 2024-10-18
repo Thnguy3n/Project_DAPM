@@ -13,6 +13,24 @@ public class ProductResponse extends AbstractDTO {
     private Integer deleted;
     private Long categoryId;
     private Long supplierId;
+    private String supplierName;
+    private String categoryName;
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public Long getCategoryId() {
         return categoryId;

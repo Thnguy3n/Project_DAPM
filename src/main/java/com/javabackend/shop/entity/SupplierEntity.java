@@ -10,7 +10,7 @@ public class SupplierEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="productName")
+    @Column(name="productname")
     private String productName;
     @Column(name="quantity")
     private Integer quantity;

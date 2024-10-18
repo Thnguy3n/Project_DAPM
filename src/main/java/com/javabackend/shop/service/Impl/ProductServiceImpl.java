@@ -1,7 +1,9 @@
 package com.javabackend.shop.service.Impl;
 
 import com.javabackend.shop.Utils.UploadFileUtils;
+import com.javabackend.shop.entity.CategoryEntity;
 import com.javabackend.shop.entity.ProductEntity;
+import com.javabackend.shop.entity.SupplierEntity;
 import com.javabackend.shop.model.Response.ProductResponse;
 import com.javabackend.shop.model.dto.ProductDTO;
 import com.javabackend.shop.model.request.ProductRequest;
@@ -34,8 +36,11 @@ public class ProductServiceImpl implements IProductService {
         List<ProductEntity> productEntities =productRepository.findAll(productRequest);
         List<ProductResponse> productResponses = new ArrayList<>();
         for(ProductEntity it : productEntities ){
-            ProductResponse productResponse = modelMapper.map(it, ProductResponse.class); ;
-            productResponses.add(productResponse);
+            if(it.getDeleted()==1){
+                ProductResponse productResponse = modelMapper.map(it, ProductResponse.class); ;
+                productResponses.add(productResponse);
+            }
+
         }
         return productResponses;
     }
@@ -43,6 +48,13 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void addOrUpdateProduct(ProductDTO productDTO) {
         ProductEntity productEntity = modelMapper.map(productDTO, ProductEntity.class);
+        CategoryEntity categoryEntity=new CategoryEntity();
+        SupplierEntity supplierEntity=new SupplierEntity();
+        supplierEntity.setId(productDTO.getSupplierId());
+        categoryEntity.setId(productDTO.getCategoryId());
+        productEntity.setCategoryEntity(categoryEntity);
+        productEntity.setSupplierEntity(supplierEntity);
+        productEntity.setDeleted(1);
         saveThumbnail(productDTO, productEntity);
         productRepository.save(productEntity);
     }
@@ -50,7 +62,11 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void deleteProducts(List<Long> Id) {
         List<ProductEntity> productEntities = productRepository.findAllById(Id);
-        productRepository.deleteAll(productEntities);
+        for(ProductEntity it : productEntities){
+            it.setDeleted(0);
+            productEntities.add(it);
+            productRepository.save(it);
+        }
     }
 
     @Override
@@ -65,11 +81,13 @@ public class ProductServiceImpl implements IProductService {
         if (null != productDTO.getImageBase64()) {
             if (null != productEntity.getImage()) {
                 if (!path.equals(productEntity.getImage())) {
-                    File file = new File("C://home/DAPM" + productEntity.getImage());
+                    File file = new File("C://home/office" + productEntity.getImage());
                     file.delete();
                 }
             }
-            byte[] bytes = Base64.decodeBase64(productDTO.getImageBase64().getBytes());
+            String base64Image = productDTO.getImageBase64().split(",")[1]; // Bỏ phần 'data:image/png;base64,'
+            byte[] bytes = Base64.decodeBase64(base64Image);
+
             uploadFileUtils.writeOrUpdate(path,bytes);
             productEntity.setImage(path);
         }

@@ -11,7 +11,7 @@ public class GaleryEntity extends BaseEntity {
     @Column(name = "image")
     private String image;
     @ManyToOne
-    @JoinColumn(name ="productId")
+    @JoinColumn(name ="product_id")
     private ProductEntity productEntity;
 
     @Override

@@ -230,87 +230,94 @@
                     </div>
                 </aside>
                 <div class="tf-shop-content">
-                    <div class="grid-layout wrapper-shop" data-grid="grid-3">
-                        <form:form modelAttribute="product" method="GET" var="item">
-                                    <c:forEach items="${productList}" var="item">
-                                        <div class="card-product">
-                                            <div class="card-product-wrapper">
-                                                <a href="<c:url value="product-detail-${item.id}"/> " class="product-img">
-                                                    <img class="lazyload img-product"
-                                                         data-src="/repository${item.image}"
-                                                         src="/repository${item.image}" alt="image-product">
-                                                    <img class="lazyload img-hover"
-                                                         data-src="images/products/white-1.jpg"
-                                                         src="images/products/white-1.jpg" alt="image-product">
-                                                </a>
-                                                <div class="list-product-btn absolute-2">
-                                                    <a href="javascript:void(0);"
-                                                       class="box-icon bg_white wishlist btn-icon-action">
-                                                        <span class="icon icon-heart"></span>
-                                                        <span class="tooltip">Add to Wishlist</span>
-                                                        <span class="icon icon-delete"></span>
-                                                    </a>
-                                                    <a href="#quick_view" data-bs-toggle="modal"
-                                                       class="box-icon bg_white quickview tf-btn-loading">
-                                                        <span class="icon icon-view"></span>
-                                                        <span class="tooltip">Quick View</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="card-product-info">
-                                                <a href="<c:url value="product-detail-${item.id}"/> " class="title link">${item.title}</a>
-                                                <span class="price">${item.price} VNĐ</span>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                    <c:forEach items="${productList1}" var="item">
-                                        <div class="card-product">
-                                            <div class="card-product-wrapper">
-                                                <a href="<c:url value="product-detail-${item.id}"/> " class="product-img">
-                                                    <img class="lazyload img-product"
-                                                         data-src="/repository${item.image}"
-                                                         src="/repository${item.image}" alt="image-product">
-                                                    <img class="lazyload img-hover"
-                                                         data-src="images/products/white-1.jpg"
-                                                         src="images/products/white-1.jpg" alt="image-product">
-                                                </a>
-                                                <div class="list-product-btn absolute-2">
-                                                    <a href="#quick_add" data-bs-toggle="modal"
-                                                       class="box-icon bg_white quick-add tf-btn-loading">
-                                                        <span class="icon icon-bag"></span>
-                                                        <span class="tooltip">Quick Add</span>
-                                                    </a>
-                                                    <a href="javascript:void(0);"
-                                                       class="box-icon bg_white wishlist btn-icon-action">
-                                                        <span class="icon icon-heart"></span>
-                                                        <span class="tooltip">Add to Wishlist</span>
-                                                        <span class="icon icon-delete"></span>
-                                                    </a>
-                                                    <a href="#compare" data-bs-toggle="offcanvas"
-                                                       aria-controls="offcanvasLeft"
-                                                       class="box-icon bg_white compare btn-icon-action">
-                                                        <span class="icon icon-compare"></span>
-                                                        <span class="tooltip">Add to Compare</span>
-                                                        <span class="icon icon-check"></span>
-                                                    </a>
-                                                    <a href="#quick_view" data-bs-toggle="modal"
-                                                       class="box-icon bg_white quickview tf-btn-loading">
-                                                        <span class="icon icon-view"></span>
-                                                        <span class="tooltip">Quick View</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="card-product-info">
-                                                <a href="product-detail.html" class="title link">${item.title}</a>
-                                                <span class="price">${item.price} VNĐ</span>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                    <input type="hidden" name="Product" id="productId" value="">
-                        </form:form>
+                    <form:form modelAttribute="product" method="GET" var="item">
+                        <div class="grid-layout wrapper-shop" data-grid="grid-3">
 
-                        <!-- card product 1 -->
-                    </div>
+                            <c:forEach items="${productList}" var="item">
+                                <div class="card-product">
+                                    <div class="card-product-wrapper">
+                                        <a href="<c:url value="product-detail-${item.id}"/> " class="product-img">
+                                            <img class="lazyload img-product"
+                                                 data-src="/repository${item.image}"
+                                                 src="/repository${item.image}" alt="image-product">
+                                            <img class="lazyload img-hover"
+                                                 data-src="images/products/white-1.jpg"
+                                                 src="images/products/white-1.jpg" alt="image-product">
+                                        </a>
+                                        <div class="list-product-btn absolute-2">
+                                            <a href="javascript:void(0);"
+                                               class="box-icon bg_white wishlist btn-icon-action">
+                                                <span class="icon icon-heart"></span>
+                                                <span class="tooltip">Add to Wishlist</span>
+                                                <span class="icon icon-delete"></span>
+                                            </a>
+                                            <a href="#quick_view" data-bs-toggle="modal"
+                                               class="box-icon bg_white quickview tf-btn-loading">
+                                                <span class="icon icon-view"></span>
+                                                <span class="tooltip">Quick View</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-product-info has-padding">
+                                        <a href="<c:url value="product-detail-${item.id}"/> "
+                                           class="title link">${item.title}</a>
+                                        <span class="price"><span
+                                                class="fw-4 text-sale">${item.price} VNĐ </span> <span
+                                                class="text_primary"><c:set var="salePrice"
+                                                                            value="${item.price-(item.price * (item.discount/100))}"/> ${salePrice}VNĐ</span>
+                                                </span>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                            <c:forEach items="${productList1}" var="item">
+                                <div class="card-product">
+                                    <div class="card-product-wrapper">
+                                        <a href="<c:url value="product-detail-${item.id}"/> " class="product-img">
+                                            <img class="lazyload img-product"
+                                                 data-src="/repository${item.image}"
+                                                 src="/repository${item.image}" alt="image-product">
+                                            <img class="lazyload img-hover"
+                                                 data-src="images/products/white-1.jpg"
+                                                 src="images/products/white-1.jpg" alt="image-product">
+                                        </a>
+                                        <div class="list-product-btn absolute-2">
+                                            <a href="#quick_add" data-bs-toggle="modal"
+                                               class="box-icon bg_white quick-add tf-btn-loading">
+                                                <span class="icon icon-bag"></span>
+                                                <span class="tooltip">Quick Add</span>
+                                            </a>
+                                            <a href="javascript:void(0);"
+                                               class="box-icon bg_white wishlist btn-icon-action">
+                                                <span class="icon icon-heart"></span>
+                                                <span class="tooltip">Add to Wishlist</span>
+                                                <span class="icon icon-delete"></span>
+                                            </a>
+                                            <a href="#compare" data-bs-toggle="offcanvas"
+                                               aria-controls="offcanvasLeft"
+                                               class="box-icon bg_white compare btn-icon-action">
+                                                <span class="icon icon-compare"></span>
+                                                <span class="tooltip">Add to Compare</span>
+                                                <span class="icon icon-check"></span>
+                                            </a>
+                                            <a href="#quick_view" data-bs-toggle="modal"
+                                               class="box-icon bg_white quickview tf-btn-loading">
+                                                <span class="icon icon-view"></span>
+                                                <span class="tooltip">Quick View</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-product-info">
+                                        <a href="product-detail.html" class="title link">${item.title}</a>
+                                        <span class="price">${item.price} VNĐ</span>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                            <input type="hidden" name="Product" id="productId" value="">
+                        </div>
+
+                    </form:form>
+
+                    <!-- card product 1 -->
                     <!-- pagination -->
                     <ul class="tf-pagination-wrap tf-pagination-list">
                         <li class="active">

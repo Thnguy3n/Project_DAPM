@@ -25,4 +25,23 @@ public class CategoryServiceImpl implements ICategoryService {
                 .map(category -> modelMapper.map(category, CategoryDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void addOrUpdateCategory(CategoryDTO categoryDTO) {
+        CategoryEntity category = modelMapper.map(categoryDTO, CategoryEntity.class);
+        categoryRepository.save(category);
+    }
+
+    @Override
+    public CategoryDTO findCategoryEntityById(Long id) {
+        CategoryEntity categoryEntity= categoryRepository.findById(id).get();
+        CategoryDTO categoryDTO = modelMapper.map(categoryEntity, CategoryDTO.class);
+        return categoryDTO;
+    }
+
+    @Override
+    public void deleteCategorys(List<Long> Id) {
+        List<CategoryEntity> categoryEntities = categoryRepository.findAllById(Id);
+        categoryRepository.deleteAll(categoryEntities);
+    }
 }

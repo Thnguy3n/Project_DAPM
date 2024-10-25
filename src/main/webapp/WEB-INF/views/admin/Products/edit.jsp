@@ -197,23 +197,23 @@
         });
     })
 
-    function addOrupdate(data) {
-        $.ajax({
-            type: "POST",
-            url: "${productAPI}",
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            dataType: "JSON",
-            success: function (response) {
-                console.info("success!");
+    <%--function addOrupdate(data) {--%>
+    <%--    $.ajax({--%>
+    <%--        type: "POST",--%>
+    <%--        url: "${productAPI}",--%>
+    <%--        data: JSON.stringify(data),--%>
+    <%--        contentType: "application/json",--%>
+    <%--        dataType: "JSON",--%>
+    <%--        success: function (response) {--%>
+    <%--            console.info("success!");--%>
 
-            },
-            error: function (respond) {
-                console.info("Fail!")
-                console.log(respond);
-            }
-        });
-    }
+    <%--        },--%>
+    <%--        error: function (respond) {--%>
+    <%--            console.info("Fail!")--%>
+    <%--            console.log(respond);--%>
+    <%--        }--%>
+    <%--    });--%>
+    <%--}--%>
 
     $('#bntCancel').click(function () {
         window.location.href = "/admin/product-list";

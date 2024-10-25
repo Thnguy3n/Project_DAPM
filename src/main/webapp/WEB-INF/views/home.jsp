@@ -132,7 +132,7 @@
                                     <div class="swiper-slide" lazy="true">
                                         <div class="card-product bg_white radius-20">
                                             <div class="card-product-wrapper">
-                                                <a href="product-detail.html" class="product-img">
+                                                <a href="<c:url value="product-detail-${item.id}"/> " class="product-img">
                                                     <img class="lazyload img-product"
                                                          src="/repository${item.image}"
                                                          data-src="/repository${item.image}" alt="image-product">
@@ -158,7 +158,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-product-info has-padding">
-                                                <a href="product-detail.html" class="title link">${item.title}</a>
+                                                <a href="<c:url value="product-detail-${item.id}"/> " class="title link">${item.title}</a>
                                                 <span class="price"><span class="fw-4 text-sale">${item.price} VNĐ </span> <span
                                                         class="text_primary"><c:set var="salePrice" value="${item.price * 0.5}"/> ${salePrice}VNĐ</span>
                                                 </span>

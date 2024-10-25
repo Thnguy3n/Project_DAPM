@@ -57,6 +57,7 @@ public class HomeController {
         ModelAndView mav = new ModelAndView("web/productDetail");
         ProductDTO productDTO = productService.findProductById(id);
         mav.addObject("productDTO", productDTO);
+        mav.addObject("Bigsale2",productService.findProductBigDiscount(productDTO));
         return mav;
     }
 

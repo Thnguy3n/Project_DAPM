@@ -51,29 +51,49 @@
             </div>
             <div class="col-xl-3 col-md-4 col-3">
                 <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
-                    <li class="nav-search"><a href="#canvasSearch" data-bs-toggle="offcanvas"
-                                              aria-controls="offcanvasLeft" class="nav-icon-item"><i
-                            class="icon icon-search"></i></a></li>
+                    <li class="nav-search">
+                        <a href="#canvasSearch" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
+                           class="nav-icon-item">
+                            <i class="icon icon-search"></i>
+                        </a>
+                    </li>
                     <security:authorize access="isAnonymous()">
-                        <li class="nav-account"><a href="#login" data-bs-toggle="modal" class="nav-icon-item"><i
-                                class="icon icon-account"></i></a></li>
-                    </security:authorize>
-                    <security:authorize access="isAuthenticated()">
-                        <li class="nav-account"><a class="nav-icon-item"><i
-                                class="icon icon-account"></i></a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
+                        <li class="nav-account">
+                            <a href="#login" data-bs-toggle="modal" class="nav-icon-item">
+                                <i class="icon icon-account"></i>
+                            </a>
                         </li>
                     </security:authorize>
-                    <li class="nav-wishlist"><a href="wishlist.html" class="nav-icon-item"><i
-                            class="icon icon-heart"></i><span class="count-box">0</span></a></li>
-                    <li class="nav-cart"><a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"><i
-                            class="icon icon-bag"></i><span class="count-box">0</span></a></li>
+
+                    <security:authorize access="isAuthenticated()">
+                        <li class="nav-account dropdown">
+                            <a href="#" class="nav-icon-item dropdown-toggle" id="userDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="icon icon-account"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                       data-bs-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </security:authorize>
+
+                    <li class="nav-wishlist">
+                        <a href="wishlist.html" class="nav-icon-item">
+                            <i class="icon icon-heart"></i><span class="count-box">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-cart">
+                        <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item">
+                            <i class="icon icon-bag"></i><span class="count-box">0</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

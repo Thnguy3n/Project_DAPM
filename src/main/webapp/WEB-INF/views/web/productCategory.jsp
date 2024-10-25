@@ -258,7 +258,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-product-info">
-                                                <a href="product-detail.html" class="title link">${item.title}</a>
+                                                <a href="<c:url value="product-detail-${item.id}"/> " class="title link">${item.title}</a>
                                                 <span class="price">${item.price} VNĐ</span>
                                             </div>
                                         </div>
@@ -266,7 +266,7 @@
                                     <c:forEach items="${productList1}" var="item">
                                         <div class="card-product">
                                             <div class="card-product-wrapper">
-                                                <a href="product-detail.html" class="product-img">
+                                                <a href="<c:url value="product-detail-${item.id}"/> " class="product-img">
                                                     <img class="lazyload img-product"
                                                          data-src="/repository${item.image}"
                                                          src="/repository${item.image}" alt="image-product">

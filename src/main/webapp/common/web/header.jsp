@@ -31,13 +31,19 @@
                             <a href="<c:url value="/product-category"/>" class="item-link">Bộ sưu tập</a>
                         </li>
                         <li class="menu-item">
-                            <a href="<c:url value="/category-Tee"/>" class="item-link">Áo nam</a>
+                            <a href="/product-category-1" class="item-link">Áo Khoác</a>
                         </li>
                         <li class="menu-item">
-                            <a href="<c:url value="/category-Pants"/>" class="item-link">Quần nam</a>
+                            <a href="/product-category-2" class="item-link">Áo thun</a>
                         </li>
                         <li class="menu-item">
-                            <a href="<c:url value="/category-Pants"/>" class="item-link">Giới thiệu</a>
+                            <a href="/product-category-3" class="item-link">Quần tây</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/product-category-4" class="item-link">Quần jean</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" class="item-link">Giới thiệu</a>
                         </li>
 
                     </ul>

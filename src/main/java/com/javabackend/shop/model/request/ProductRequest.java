@@ -11,7 +11,7 @@ public class ProductRequest extends AbstractDTO {
     private Integer inventory;
     private String description;
     private Integer deleted;
-    private Long categoryId;
+    private Long category_id;
     private Long supplierId;
     private String supplierName;
     private String categoryName;
@@ -32,12 +32,12 @@ public class ProductRequest extends AbstractDTO {
         this.categoryName = categoryName;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Long getCategory_id() {
+        return category_id;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory_id(Long category_id) {
+        this.category_id = category_id;
     }
 
     public Long getSupplierId() {

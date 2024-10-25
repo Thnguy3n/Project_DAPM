@@ -60,6 +60,19 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public List<ProductDTO> findAllProducts(ProductDTO productDTO) {
+        List<ProductEntity> productEntityList=productRepository.findAll();
+        List<ProductDTO> productDTOList= new ArrayList<>();
+        for(ProductEntity it : productEntityList){
+            ProductDTO p = modelMapper.map(it,ProductDTO.class);
+            if(p.getDeleted()==1){
+                productDTOList.add(p);
+            }
+        }
+        return productDTOList;
+    }
+
+    @Override
     public void deleteProducts(List<Long> Id) {
         List<ProductEntity> productEntities = productRepository.findAllById(Id);
         for(ProductEntity it : productEntities){
@@ -75,6 +88,35 @@ public class ProductServiceImpl implements IProductService {
         ProductDTO productDTO = modelMapper.map(productEntity, ProductDTO.class);
         return productDTO;
     }
+
+    @Override
+    public List<ProductDTO> findProductByCategoryId(Long id) {
+        ProductRequest productRequest = new ProductRequest();
+        productRequest.setCategory_id(id);
+        List<ProductEntity> productEntities = productRepository.findAll(productRequest);
+        List<ProductDTO> productDTOList= new ArrayList<>();
+        for(ProductEntity it : productEntities){
+            ProductDTO p = modelMapper.map(it, ProductDTO.class);
+            if(p.getDeleted()==1){
+                productDTOList.add(p);
+            }
+        }
+        return productDTOList;
+    }
+
+    @Override
+    public List<ProductDTO> findProductBigDiscount(ProductDTO productDTO) {
+        List<ProductEntity> productEntityList=productRepository.findProductEntitiesByDiscount(50);
+        List<ProductDTO> productDTOList= new ArrayList<>();
+        for(ProductEntity it : productEntityList){
+            ProductDTO p = modelMapper.map(it, ProductDTO.class);
+            if(p.getDeleted()==1){
+                productDTOList.add(p);
+            }
+        }
+        return productDTOList;
+    }
+
 
     public void saveThumbnail(ProductDTO productDTO, ProductEntity productEntity) {
         String path = "/product/" + productDTO.getImageName();

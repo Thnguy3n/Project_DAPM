@@ -33,8 +33,8 @@ public class ProductEntity extends BaseEntity {
     @JoinColumn(name ="supplier_id")
     private SupplierEntity supplierEntity;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
-    List<CartEntity> cartEntities=new ArrayList<>();
+//    @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
+//    List<CartEntity> cartEntities=new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
     List<GaleryEntity> galeryEntities=new ArrayList<>();
@@ -55,13 +55,13 @@ public class ProductEntity extends BaseEntity {
         this.galeryEntities = galeryEntities;
     }
 
-    public List<CartEntity> getCartEntities() {
-        return cartEntities;
-    }
-
-    public void setCartEntities(List<CartEntity> cartEntities) {
-        this.cartEntities = cartEntities;
-    }
+//    public List<CartEntity> getCartEntities() {
+//        return cartEntities;
+//    }
+//
+//    public void setCartEntities(List<CartEntity> cartEntities) {
+//        this.cartEntities = cartEntities;
+//    }
 
     @Override
     public Long getId() {

@@ -32,6 +32,9 @@ public class UserEntity extends BaseEntity {
     @Column(name = "phone", unique = true)
     private String phone;
 
+    @OneToOne(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private CartEntity cartEntity;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", nullable = false),
@@ -40,6 +43,14 @@ public class UserEntity extends BaseEntity {
 
     public List<RoleEntity> getRoles() {
         return roles;
+    }
+
+    public CartEntity getCartEntity() {
+        return cartEntity;
+    }
+
+    public void setCartEntity(CartEntity cartEntity) {
+        this.cartEntity = cartEntity;
     }
 
     public void setRoles(List<RoleEntity> roles) {

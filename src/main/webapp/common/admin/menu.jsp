@@ -24,8 +24,13 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<c:url value="/admin/user-list"/>">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-user"></i>
             <span>Quản lý tài khoản  </span></a>
+    </li>
+    <li class="nav-item">
+        <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/category-list"/>" >
+            <i class="fas fa-fw fa-list-alt"></i>
+            <span>Quản lý danh mục sản phẩm  </span></a>
     </li>
 
     <!-- Divider -->

@@ -1,9 +1,12 @@
 package com.javabackend.shop.Controller.web;
 import com.javabackend.shop.model.dto.CategoryDTO;
 import com.javabackend.shop.model.dto.ProductDTO;
+import com.javabackend.shop.model.dto.UserDTO;
+import com.javabackend.shop.security.utils.SecurityUtils;
 import com.javabackend.shop.service.Impl.CategoryServiceImpl;
 import com.javabackend.shop.service.Impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -56,10 +59,19 @@ public class HomeController {
     public ModelAndView ProductDetailPage(@PathVariable("id") Long id , HttpServletRequest request){
         ModelAndView mav = new ModelAndView("web/productDetail");
         ProductDTO productDTO = productService.findProductById(id);
+        if (SecurityContextHolder.getContext().getAuthentication() != null &&
+                SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+                !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setId(SecurityUtils.getPrincipal().getId());
+            mav.addObject("user", userDTO);
+        }
         mav.addObject("productDTO", productDTO);
         mav.addObject("Bigsale2",productService.findProductBigDiscount(productDTO));
         return mav;
     }
+
+
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {

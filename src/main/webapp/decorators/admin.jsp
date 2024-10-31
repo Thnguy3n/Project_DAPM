@@ -49,7 +49,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> Nhấn chọn "Logout" để thoát .</div>
-                <div class="modal-footer">
+                <div class="modal-footer">W
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="<c:url value='/logout'/>">Logout</a>
                 </div>

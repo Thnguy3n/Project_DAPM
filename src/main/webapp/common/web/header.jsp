@@ -59,7 +59,7 @@
                     </li>
                     <security:authorize access="isAnonymous()">
                         <li class="nav-account">
-                            <a href="#login" data-bs-toggle="modal" class="nav-icon-item">
+                            <a href="#login" data-bs-toggle="modal" class="nav-icon-item" >
                                 <i class="icon icon-account"></i>
                             </a>
                         </li>
@@ -131,7 +131,7 @@
                         <label class="tf-field-label">User name *</label>
                     </div>
                     <div class="tf-field style-1">
-                        <input class="tf-field-input tf-input" placeholder=" " type="text" id="password"
+                        <input class="tf-field-input tf-input" placeholder=" " type="password" id="password"
                                name="j_password">
                         <label class="tf-field-label">Password *</label>
                     </div>

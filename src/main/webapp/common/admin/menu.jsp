@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/tablist.jsp"%>
-<ul style="width: 15rem!important" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/home">
@@ -24,12 +24,12 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<c:url value="/admin/user-list"/>">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-user"></i>
             <span>Quản lý tài khoản  </span></a>
     </li>
     <li class="nav-item">
         <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/category-list"/>" >
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-list-alt"></i>
             <span>Quản lý danh mục sản phẩm  </span></a>
     </li>
 

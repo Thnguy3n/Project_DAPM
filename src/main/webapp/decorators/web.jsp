@@ -27,6 +27,13 @@
 <%@ include file="/common/web/header.jsp" %>
 
 <dec:body/>
+
+<%@ include file="/common/web/footer.jsp" %>
+
+<%@ include file="/WEB-INF/views/web/cart-modal.jsp" %>
+
+
+
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">

@@ -5,6 +5,7 @@ import com.javabackend.shop.converter.UserConverter;
 import com.javabackend.shop.entity.RoleEntity;
 import com.javabackend.shop.entity.UserEntity;
 import com.javabackend.shop.exception.MyException;
+import com.javabackend.shop.model.dto.MyUserDetail;
 import com.javabackend.shop.model.dto.PasswordDTO;
 import com.javabackend.shop.model.dto.UserDTO;
 import com.javabackend.shop.repository.RoleRepository;
@@ -16,14 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -179,5 +180,7 @@ public class UserServiceImpl implements IUserService {
         userEntity.setRoles(Stream.of(role).collect(Collectors.toList()));
         userEntity.setStatus(1);
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        return userConverter.convertToDto(userRepository.save(userEntity));    }
+        return userConverter.convertToDto(userRepository.save(userEntity));
+    }
+
 }

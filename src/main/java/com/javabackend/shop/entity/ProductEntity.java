@@ -20,7 +20,7 @@ public class ProductEntity extends BaseEntity {
     @Column(name = "title")
     private String title;
     @Column(name = "price")
-    private String price;
+    private Double price;
     @Column(name = "discount")
     private Integer discount;
     @Column(name = "image")
@@ -41,7 +41,7 @@ public class ProductEntity extends BaseEntity {
     private SupplierEntity supplierEntity;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
-    List<CartEntity> cartEntities=new ArrayList<>();
+    List<CartItemEntity> cartEntities=new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
     List<GaleryEntity> galeryEntities=new ArrayList<>();

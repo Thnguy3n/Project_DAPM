@@ -24,5 +24,5 @@ public class SupplierEntity extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "supplierEntity")
     List<ProductEntity> productEntities=new ArrayList<>();
 
-    
+
 }

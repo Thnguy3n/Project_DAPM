@@ -114,7 +114,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <display:table name="supplier" cellspacing="0" cellpadding="0" requestURI="${supplierListURL}"
+                            <display:table name="supplier1" cellspacing="0" cellpadding="0" requestURI="${supplierListURL}"
                                            id="tableList"
                                            class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
                                            style="margin: 3em 0 1.5em;"
@@ -128,7 +128,7 @@
                                                id="checkbox_${tableList.id}" class="check-box-element"/>
                                     </fieldset>
                                 </display:column>
-                                <display:column headerClass="text-left" property="productname" title="Tên nhà cung cấp "/>
+                                <display:column headerClass="text-left" property="productName" title="Tên nhà cung cấp "/>
                                 <display:column headerClass="text-left" property="quantity" title="Số lượng nhập "/>
                                 <display:column headerClass="text-left" property="createdDate" title="Ngày nhập "/>
                                 <display:column headerClass="text-left" property="createdBy" title="Người nhập "/>

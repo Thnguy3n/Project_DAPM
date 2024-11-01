@@ -24,7 +24,7 @@ public class SupplierController {
     @RequestMapping(value = "/admin/supplier-list",method = RequestMethod.GET)
     public ModelAndView supplierList(@ModelAttribute SupplierDTO supplierDTO, HttpServletRequest request) {
         ModelAndView view = new ModelAndView("admin/Supplier/list");
-        view.addObject("supplier",supplierService.findAll());
+        view.addObject("supplier1",supplierService.findAll());
         return view;
     }
 

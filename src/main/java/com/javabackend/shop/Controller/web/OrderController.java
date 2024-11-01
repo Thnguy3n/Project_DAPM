@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class OrderController {
     @RequestMapping(value = "/order",method = RequestMethod.GET)
     public ModelAndView OrderPage() {
-        ModelAndView view = new ModelAndView("web/Checkout");
+        ModelAndView view = new ModelAndView("web/checkout");
         return view;
     }
 }

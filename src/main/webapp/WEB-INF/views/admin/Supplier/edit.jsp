@@ -52,9 +52,16 @@
                                             <div class="form-group">
                                                 <div class="col-xs-3">Tên nhà cung cấp</div>
                                                 <div class="col-xs-9">
-                                                    <form:input class="form-control" path="productname"/>
+                                                    <form:input class="form-control" path="productName"/>
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <div class="col-xs-3">Số lượng nhập</div>
+                                                <div class="col-xs-9">
+                                                    <form:input class="form-control" path="quantity"/>
+                                                </div>
+                                            </div>
+
                                             <div class="form-group">
                                                 <label class="col-xs-3"></label>
                                                 <div class="col-xs-9">
@@ -62,6 +69,16 @@
                                                         <button type="button" class="btn btn-primary"
                                                                 id="btnAddOrUpdateSupplier">Cập
                                                             nhật nhà cung cấp
+                                                        </button>
+                                                        <button type="button" class="btn btn-primary" id="btnCancel">Hủy
+                                                            thao
+                                                            tác
+                                                        </button>
+                                                    </c:if>
+                                                    <c:if test="${empty supplierEdit.id}">
+                                                        <button type="button" class="btn btn-primary"
+                                                                id="btnAddOrUpdateSupplier">Thêm
+                                                            mới sản phẩm
                                                         </button>
                                                         <button type="button" class="btn btn-primary" id="btnCancel">Hủy
                                                             thao

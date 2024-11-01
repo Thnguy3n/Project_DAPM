@@ -60,7 +60,7 @@
                                     <a href="view-cart.html"
                                        class="tf-btn btn-outline radius-3 link w-100 justify-content-center">Xem giỏ
                                         hàng</a>
-                                    <a href="checkout.html"
+                                    <a href="<c:url value="order"/>"
                                        class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Thanh toán</span></a>
                                 </div>
                             </div>

@@ -53,7 +53,65 @@
     </div>
 </div>
 
+<!-- toolbar-bottom -->
+<div class="tf-toolbar-bottom type-1150">
+    <div class="toolbar-item active">
+        <a href="#toolbarShopmb" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft">
+            <div class="toolbar-icon">
+                <i class="icon-shop"></i>
+            </div>
+            <div class="toolbar-label">Shop</div>
+        </a>
+    </div>
 
+    <div class="toolbar-item">
+        <a href="#canvasSearch" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft">
+            <div class="toolbar-icon">
+                <i class="icon-search"></i>
+            </div>
+            <div class="toolbar-label">Tìm kiếm</div>
+        </a>
+    </div>
+    <div class="toolbar-item">
+        <a href="#login" data-bs-toggle="modal">
+            <div class="toolbar-icon">
+                <i class="icon-account"></i>
+            </div>
+            <div class="toolbar-label">Tài khoản</div>
+        </a>
+    </div>
+    <div class="toolbar-item">
+        <a href="#shoppingCart" data-bs-toggle="modal">
+            <div class="toolbar-icon">
+                <i class="icon-bag"></i>
+                <div class="toolbar-count">1</div>
+            </div>
+            <div class="toolbar-label">Giỏ hàng</div>
+        </a>
+    </div>
+</div>
+<!-- /toolbar-bottom -->
+<!-- toolbarShopmb -->
+<div class="offcanvas offcanvas-start canvas-mb toolbar-shop-mobile" id="toolbarShopmb">
+    <span class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></span>
+    <div class="mb-canvas-content">
+        <div class="mb-body">
+            <ul class="nav-ul-mb" id="wrapper-menu-navigation">
+
+                <li class="nav-mb-item">
+                    <a href="<c:url value="/product-category"/>" class="tf-category-link mb-menu-link">
+                        <i class="fas fa-fw fa-list-alt"></i>
+                        <span>Bộ sưu tập</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="mb-bottom">
+        </div>
+    </div>
+</div>
+<!-- /toolbarShopmb -->
 
 <!-- Javascript -->
 <script type="text/javascript" src="js/jquery.min.js"></script>

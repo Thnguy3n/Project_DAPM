@@ -81,7 +81,7 @@
     <input type="hidden" name="User" id="userId" value="${user.id}">
 </div>
 <script>
-    document.querySelector(".nav-cart a").addEventListener("click", function() {
+    document.querySelector(".nav-cart a").addEventListener("click", function () {
         const userId = document.getElementById("userId").value;
 
         function formatMoney(amount) {
@@ -95,7 +95,6 @@
                 container.innerHTML = '';
 
                 let totalPrice = 0;
-
                 let row = '';
                 cartData.items.forEach((item, index) => {
                     const itemTotal = (item.price - (item.price * item.discount / 100)) * item.quantity;
@@ -122,7 +121,6 @@
                 });
 
                 container.innerHTML += row;
-
                 document.getElementById("totalPriceDisplay").textContent = formatMoney(totalPrice) + ' VNĐ';
 
                 function updateCartTotal() {
@@ -137,12 +135,26 @@
                 cartData.items.forEach((item, index) => {
                     const quantityInput = document.getElementById(`quantity1-` + index);
                     const priceDisplay = document.getElementById(`price-` + index);
+                    const productId=item.productId;
+                    const size=item.size;
 
                     function updateItemTotalPrice() {
                         const newQuantity = parseInt(quantityInput.value) || 1;
                         const newTotal = (item.price - (item.price * item.discount / 100)) * newQuantity;
                         priceDisplay.textContent = formatMoney(newTotal) + ` VNĐ`;
                         updateCartTotal();
+
+                        fetch(`/api/cart/addOrUpdate?userId=` + userId + `&isUpdateQuantity=true`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ cartItemId: item.id, quantity: newQuantity,  productId: productId, size: size })
+                        }).then(response => {
+                            if (!response.ok) {
+                                console.error("Cập nhật số lượng không thành công.");
+                            }
+                        }).catch(error => console.error("Lỗi kết nối:", error));
                     }
 
                     document.getElementById(`plus-btn1-` + index).addEventListener('click', () => {
@@ -160,7 +172,6 @@
                     quantityInput.addEventListener('input', updateItemTotalPrice);
                 });
 
-
                 document.querySelectorAll(".tf-mini-cart-remove").forEach(removeButton => {
                     removeButton.addEventListener('click', () => {
                         const cartItemId = removeButton.getAttribute("data-cart-item-id");
@@ -169,7 +180,7 @@
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify(cartItemId)
+                            body: JSON.stringify({ cartItemId: cartItemId })
                         })
                             .then(response => {
                                 if (response.ok) {

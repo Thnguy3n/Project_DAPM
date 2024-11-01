@@ -35,22 +35,30 @@ public class CartServiceImpl implements ICartService {
     private ProductRepository productRepository;
 
     @Override
-    public void addToCart(CartItemDTO cartItemDTO, Long userId) {
+    public void addToCart(CartItemDTO cartItemDTO, Long userId, boolean isUpdateQuantity) {
         CartEntity cartEntity = cartRepository.findCartByUserId(userId)
                 .orElseGet(() -> {
                     CartEntity newCartEntity = new CartEntity();
                     newCartEntity.setUserEntity(userRepository.findById(userId).get());
                     return cartRepository.save(newCartEntity);
                 });
+
         ProductEntity productEntity = productRepository.findById(cartItemDTO.getProductId()).get();
         Optional<CartItemEntity> existingCartItem = cartEntity.getCartItemEntities().stream()
                 .filter(item -> item.getProductEntity().getId().equals(cartItemDTO.getProductId()) &&
                         item.getSize().equals(cartItemDTO.getSize()))
                 .findFirst();
+
         if (existingCartItem.isPresent()) {
             CartItemEntity cartItemEntity = existingCartItem.get();
-            cartItemEntity.setQuantity(cartItemEntity.getQuantity() + cartItemDTO.getQuantity());
-            cartItemEntity.setTotal((cartItemEntity.getPrice()-cartItemEntity.getPrice()* productEntity.getDiscount()/100) * cartItemEntity.getQuantity());
+
+            if (isUpdateQuantity) {
+                cartItemEntity.setQuantity(cartItemDTO.getQuantity());
+            } else {
+                cartItemEntity.setQuantity(cartItemEntity.getQuantity() + cartItemDTO.getQuantity());
+            }
+
+            cartItemEntity.setTotal((cartItemEntity.getPrice() - cartItemEntity.getPrice() * productEntity.getDiscount() / 100) * cartItemEntity.getQuantity());
             cartItemRepository.save(cartItemEntity);
         } else {
             CartItemEntity newCartItemEntity = new CartItemEntity();
@@ -59,10 +67,11 @@ public class CartServiceImpl implements ICartService {
             newCartItemEntity.setSize(cartItemDTO.getSize());
             newCartItemEntity.setQuantity(cartItemDTO.getQuantity());
             newCartItemEntity.setPrice(productEntity.getPrice());
-            newCartItemEntity.setTotal((newCartItemEntity.getPrice()-newCartItemEntity.getPrice()* productEntity.getDiscount()/100) * newCartItemEntity.getQuantity());
+            newCartItemEntity.setTotal((newCartItemEntity.getPrice() - newCartItemEntity.getPrice() * productEntity.getDiscount() / 100) * newCartItemEntity.getQuantity());
             cartItemRepository.save(newCartItemEntity);
         }
     }
+
 
     @Override
     public CartDTO loadCart(Long userId) {
@@ -92,6 +101,16 @@ public class CartServiceImpl implements ICartService {
     public void removeFromCart(Long cartItemId) {
         Optional<CartItemEntity> cartItemEntity= cartItemRepository.findById(cartItemId);
         cartItemRepository.delete(cartItemEntity.get());
+    }
+
+    @Override
+    public void addOrUpdateCartItem(CartItemDTO cartItemDTO) {
+        CartItemEntity cartItemEntity = cartItemRepository.findById(cartItemDTO.getId()).get();
+        ProductEntity productEntity = productRepository.findById(cartItemDTO.getProductId()).get();
+        cartItemEntity.setQuantity(cartItemDTO.getQuantity());
+        cartItemEntity.setPrice(cartItemDTO.getPrice());
+        cartItemEntity.setTotal(cartItemDTO.getPrice() * cartItemDTO.getQuantity());
+        cartItemEntity.setSize(cartItemDTO.getSize());
     }
 
 }

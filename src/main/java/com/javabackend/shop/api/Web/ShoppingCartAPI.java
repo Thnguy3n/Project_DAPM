@@ -21,11 +21,15 @@ public class ShoppingCartAPI {
     @Autowired
     private ICartService cartService;
 
-    @PostMapping("/add")
+    @PostMapping("/addOrUpdate")
     @ResponseBody
-    public ResponseEntity<String> addProductToCart(@RequestBody CartItemDTO cartItemDTO, @RequestParam Long userId) {
-        cartService.addToCart(cartItemDTO, userId);
-        return ResponseEntity.ok("Thêm vào giỏ hàng thành công");
+    public ResponseEntity<CartItemDTO> addOrUpdateCartItem(
+            @RequestBody CartItemDTO cartItemDTO,
+            @RequestParam Long userId,
+            @RequestParam(required = false, defaultValue = "false") boolean isUpdateQuantity) {
+
+        cartService.addToCart(cartItemDTO, userId, isUpdateQuantity);
+        return ResponseEntity.ok(cartItemDTO);
     }
 
     @GetMapping("/items")
@@ -45,4 +49,5 @@ public class ShoppingCartAPI {
     public void removeItemFromCart( @RequestBody Long cartItemId) {
         cartService.removeFromCart(cartItemId);
     }
+
 }

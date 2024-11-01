@@ -2,7 +2,7 @@ package com.javabackend.shop.model.dto;
 
 public class SupplierDTO extends AbstractDTO{
     private Long id;
-    private String productName;
+    private String productname;
     private Integer quantity;
 
     @Override
@@ -15,19 +15,19 @@ public class SupplierDTO extends AbstractDTO{
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
     public Integer getQuantity() {
         return quantity;
     }
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getProductname() {
+        return productname;
+    }
+
+    public void setProductname(String productname) {
+        this.productname = productname;
     }
 }

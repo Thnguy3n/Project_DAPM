@@ -1,6 +1,8 @@
 package com.javabackend.shop.service.Impl;
 
+import com.javabackend.shop.entity.CategoryEntity;
 import com.javabackend.shop.entity.SupplierEntity;
+import com.javabackend.shop.model.dto.CategoryDTO;
 import com.javabackend.shop.model.dto.SupplierDTO;
 import com.javabackend.shop.repository.SupplierRepository;
 import com.javabackend.shop.service.ISupplierService;
@@ -23,5 +25,25 @@ public class SupplierServiceImpl implements ISupplierService {
         return supplierEntities.stream()
                 .map(supplier -> modelMapper.map(supplier, SupplierDTO.class))
                 .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public void addOrUpdateSupplier(SupplierDTO supplierDTO) {
+        SupplierEntity supplier = modelMapper.map(supplierDTO, SupplierEntity.class);
+        supplierRepository.save(supplier);
+    }
+
+    @Override
+    public SupplierDTO findSupplierEntityById(Long id) {
+        SupplierEntity supplierEntity= supplierRepository.findById(id).get();
+        SupplierDTO supplierDTO = modelMapper.map(supplierEntity, SupplierDTO.class);
+        return supplierDTO;
+    }
+
+    @Override
+    public void deleteSuppliers(List<Long> Id) {
+        List<SupplierEntity> supplierEntities = supplierRepository.findAllById(Id);
+        supplierRepository.deleteAll(supplierEntities);
     }
 }

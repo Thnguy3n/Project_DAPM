@@ -16,7 +16,7 @@
 <!-- /preload -->
 <div id="wrapper">
     <!-- slider -->
-    <div class="tf-slideshow slider-radius slider-effect-fade position-relative">
+    <div class="tf-slideshow slider-radius slider-effect-fade position-relative" style="    height: fit-content">
         <div class="swiper tf-sw-slideshow" data-preview="1" data-tablet="1" data-mobile="1" data-centered="false"
              data-space="0" data-loop="true" data-auto-play="false" data-delay="2000" data-speed="1000">
             <div class="swiper-wrapper">

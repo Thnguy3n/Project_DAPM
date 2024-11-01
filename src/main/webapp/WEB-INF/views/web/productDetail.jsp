@@ -693,7 +693,7 @@
         };
 
         try {
-            const response = await fetch(`/api/cart/add?userId=` + userId, {
+            const response = await fetch(`/api/cart/addOrUpdate?userId=` + userId + `&isUpdateQuantity=false`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

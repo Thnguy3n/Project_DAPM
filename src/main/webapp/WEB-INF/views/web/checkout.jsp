@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/common/tablist.jsp" %>
+
 <!-- preload -->
 <div class="preload preload-container">
     <div class="preload-logo">
@@ -18,7 +19,7 @@
     <!-- page-title -->
     <div class="tf-page-title">
         <div class="container-full">
-            <div class="heading text-center">Đơn Hàng</div>
+            <div class="heading text-center">Thanh toán</div>
         </div>
     </div>
     <!-- /page-title -->
@@ -28,109 +29,51 @@
         <div class="container">
             <div class="tf-page-cart-wrap layout-2">
                 <div class="tf-page-cart-item">
-                    <h5 class="fw-5 mb_20">Chi tiết thanh toán</h5>
+                    <h5 class="fw-5 mb_20">Thông tin vận chuyển</h5>
                     <form class="form-checkout">
-                        <div class="box grid-2">
-                            <fieldset class="fieldset">
-                                <label for="first-name">Tên</label>
-                                <input type="text" id="first-name" placeholder="">
-                            </fieldset>
-                            <fieldset class="fieldset">
-                                <label for="last-name">Họ</label>
-                                <input type="text" id="last-name">
-                            </fieldset>
-                        </div>
                         <fieldset class="box fieldset">
-                            <label for="country">Tỉnh</label>
-                            <div class="select-custom">
-                                <select class="tf-select w-100" id="country" name="address[country]" data-default="">
-                                    <option value="---" data-provinces="[]">---</option>
-                                    <option value="An Giang">An Giang</option>
-                                    <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
-                                    <option value="Bắc Giang">Bắc Giang</option>
-                                    <option value="Bắc Kạn">Bắc Kạn</option>
-                                    <option value="Bạc Liêu">Bạc Liêu</option>
-                                    <option value="Bắc Ninh">Bắc Ninh</option>
-                                    <option value="Bến Tre">Bến Tre</option>
-                                    <option value="Bình Định">Bình Định</option>
-                                    <option value="Bình Dương">Bình Dương</option>
-                                    <option value="Bình Phước">Bình Phước</option>
-                                    <option value="Bình Thuận">Bình Thuận</option>
-                                    <option value="Cà Mau">Cà Mau</option>
-                                    <option value="Cần Thơ">Cần Thơ</option>
-                                    <option value="Cao Bằng">Cao Bằng</option>
-                                    <option value="Đà Nẵng">Đà Nẵng</option>
-                                    <option value="Đắk Lắk">Đắk Lắk</option>
-                                    <option value="Đắk Nông">Đắk Nông</option>
-                                    <option value="Điện Biên">Điện Biên</option>
-                                    <option value="Đồng Nai">Đồng Nai</option>
-                                    <option value="Đồng Tháp">Đồng Tháp</option>
-                                    <option value="Gia Lai">Gia Lai</option>
-                                    <option value="Hà Giang">Hà Giang</option>
-                                    <option value="Hà Nam">Hà Nam</option>
-                                    <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Hà Tĩnh">Hà Tĩnh</option>
-                                    <option value="Hải Dương">Hải Dương</option>
-                                    <option value="Hải Phòng">Hải Phòng</option>
-                                    <option value="Hậu Giang">Hậu Giang</option>
-                                    <option value="Hòa Bình">Hòa Bình</option>
-                                    <option value="Hưng Yên">Hưng Yên</option>
-                                    <option value="Khánh Hòa">Khánh Hòa</option>
-                                    <option value="Kiên Giang">Kiên Giang</option>
-                                    <option value="Kon Tum">Kon Tum</option>
-                                    <option value="Lai Châu">Lai Châu</option>
-                                    <option value="Lâm Đồng">Lâm Đồng</option>
-                                    <option value="Lạng Sơn">Lạng Sơn</option>
-                                    <option value="Lào Cai">Lào Cai</option>
-                                    <option value="Long An">Long An</option>
-                                    <option value="Nam Định">Nam Định</option>
-                                    <option value="Nghệ An">Nghệ An</option>
-                                    <option value="Ninh Bình">Ninh Bình</option>
-                                    <option value="Ninh Thuận">Ninh Thuận</option>
-                                    <option value="Phú Thọ">Phú Thọ</option>
-                                    <option value="Phú Yên">Phú Yên</option>
-                                    <option value="Quảng Bình">Quảng Bình</option>
-                                    <option value="Quảng Nam">Quảng Nam</option>
-                                    <option value="Quảng Ngãi">Quảng Ngãi</option>
-                                    <option value="Quảng Ninh">Quảng Ninh</option>
-                                    <option value="Quảng Trị">Quảng Trị</option>
-                                    <option value="Sóc Trăng">Sóc Trăng</option>
-                                    <option value="Sơn La">Sơn La</option>
-                                    <option value="Tây Ninh">Tây Ninh</option>
-                                    <option value="Thái Bình">Thái Bình</option>
-                                    <option value="Thái Nguyên">Thái Nguyên</option>
-                                    <option value="Thanh Hóa">Thanh Hóa</option>
-                                    <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
-                                    <option value="Tiền Giang">Tiền Giang</option>
-                                    <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
-                                    <option value="Trà Vinh">Trà Vinh</option>
-                                    <option value="Tuyên Quang">Tuyên Quang</option>
-                                    <option value="Vĩnh Long">Vĩnh Long</option>
-                                    <option value="Vĩnh Phúc">Vĩnh Phúc</option>
-                                    <option value="Yên Bái">Yên Bái</option>
-                                </select>
-                            </div>
+                            <label for="fullName">Họ tên</label>
+                            <input type="text" id="fullName" class="input-field" placeholder="Nhập họ tên">
                         </fieldset>
 
                         <fieldset class="box fieldset">
-                            <label for="city">Thị trấn/Thành phố</label>
-                            <input type="text" id="city">
+                            <label for="province">Tỉnh/Thành phố</label>
+                            <select id="province" class="select-field" onchange="updateDistricts(); updateSelectedLocation()">
+                                <option value="">Chọn Tỉnh/Thành phố</option>
+                            </select>
+
+                            <label for="district">Quận/Huyện</label>
+                            <select id="district" class="select-field" onchange="updateWards(); updateSelectedLocation()">
+                                <option value="">Chọn Quận/Huyện</option>
+                            </select>
+
+                            <label for="ward">Phường/Xã</label>
+                            <select id="ward" class="select-field" onchange="updateSelectedLocation()">
+                                <option value="">Chọn Phường/Xã</option>
+                            </select>
                         </fieldset>
+
+                        <div id="selected-location" class="selected-location box fieldset">
+                        </div>
+
                         <fieldset class="box fieldset">
-                            <label for="address">Địa chỉ</label>
-                            <input type="text" id="address">
+                            <label for="address">Địa chỉ cụ thế</label>
+                            <input type="text" id="address" class="input-field" placeholder="Nhập địa chỉ">
                         </fieldset>
+
                         <fieldset class="box fieldset">
                             <label for="phone">Số điện thoại</label>
-                            <input type="number" id="phone">
+                            <input type="number" id="phone" class="input-field" placeholder="Nhập số điện thoại">
                         </fieldset>
+
                         <fieldset class="box fieldset">
                             <label for="email">Email</label>
-                            <input type="email" id="email">
+                            <input type="email" id="email" class="input-field" placeholder="Nhập email">
                         </fieldset>
+
                         <fieldset class="box fieldset">
                             <label for="note">Ghi chú đơn hàng (tùy chọn)</label>
-                            <textarea name="note" id="note"></textarea>
+                            <textarea name="note" id="note" class="input-field" placeholder="Nhập ghi chú"></textarea>
                         </fieldset>
                     </form>
                 </div>
@@ -375,7 +318,90 @@
     </div>
 </div>
 <!-- /modal find_size -->
+<script>
+    let provincesData = {};
+    let districtsData = {};
+    let wardsData = {};
 
+    async function loadData() {
+        try {
+            const provincesResponse = await fetch('/api/tinh_tp');
+            provincesData = await provincesResponse.json();
+            const districtsResponse = await fetch('/api/quan_huyen');
+            districtsData = await districtsResponse.json();
+            const wardsResponse = await fetch('/api/xa_phuong');
+            wardsData = await wardsResponse.json();
+            populateProvinces();
+        } catch (error) {
+            console.error("Error loading data:", error);
+        }
+    }
+
+    function populateProvinces() {
+        const provinceSelect = document.getElementById("province");
+        provinceSelect.innerHTML = '<option value="">Chọn Tỉnh/Thành phố</option>';
+        for (const code in provincesData) {
+            const option = document.createElement("option");
+            option.value = code;
+            option.text = provincesData[code].name_with_type;
+            provinceSelect.add(option);
+        }
+    }
+
+    function updateDistricts() {
+        const provinceCode = document.getElementById("province").value;
+        const districtSelect = document.getElementById("district");
+        const wardSelect = document.getElementById("ward");
+
+        districtSelect.innerHTML = '<option value="">Chọn Quận/Huyện</option>';
+        wardSelect.innerHTML = '<option value="">Chọn Phường/Xã</option>';
+
+        for (const code in districtsData) {
+            if (districtsData[code].parent_code === provinceCode) {
+                const option = document.createElement("option");
+                option.value = code;
+                option.text = districtsData[code].name_with_type;
+                districtSelect.add(option);
+            }
+        }
+    }
+
+    function updateWards() {
+        const districtCode = document.getElementById("district").value;
+        const wardSelect = document.getElementById("ward");
+
+        wardSelect.innerHTML = '<option value="">Chọn Phường/Xã</option>';
+
+        for (const code in wardsData) {
+            if (wardsData[code].parent_code === districtCode) {
+                const option = document.createElement("option");
+                option.value = code;
+                option.text = wardsData[code].name_with_type;
+                wardSelect.add(option);
+            }
+        }
+    }
+
+    function updateSelectedLocation() {
+        const provinceSelect = document.getElementById("province");
+        const districtSelect = document.getElementById("district");
+        const wardSelect = document.getElementById("ward");
+
+        const provinceName = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
+        const districtName = districtSelect.options[districtSelect.selectedIndex]?.text || '';
+        const wardName = wardSelect.options[wardSelect.selectedIndex]?.text || '';
+
+        const selectedLocationDiv = document.getElementById("selected-location");
+        if (provinceName && districtName && wardName) {
+            selectedLocationDiv.textContent = provinceName+`,`+ districtName+`,`+ wardName;
+        } else {
+            selectedLocationDiv.textContent = 'Tỉnh/Thành phố, Quận/Huyện, Phường/Xã';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadData);
+
+</script>
 <!-- Javascript -->
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>

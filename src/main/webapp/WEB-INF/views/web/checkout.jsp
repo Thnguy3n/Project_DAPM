@@ -113,6 +113,7 @@
                                                 <input type="hidden" class="price1" value="${item1.price - (item1.price * (item1.discount / 100))}" />
                                                 <input type="hidden" class="total1" value="${totalPriceOf1Product}" />
                                                 <input type="hidden" class="productId1" value="${item1.productId}" />
+                                                <input type="hidden" class="cardId1" value="${item1.cartId}" />
                                             </div>
                                         </li>
                                     </c:forEach>
@@ -457,24 +458,43 @@
                 size: $(this).find('.variant').text().replace('Size: ', ''),
                 quantity: $(this).find('.quantity').text(),
                 price: $(this).find('.price1').val(),
-                total: $(this).find('.total1').val()
+                total: $(this).find('.total1').val(),
             };
             orderItems.push(item);
         });
         data.orderItems = orderItems;
+        var cartId = $('.checkout-product-item').find('.cardId1').val();
         console.log(data);
         $.ajax({
-            url: '/api/order',
+            url: '/api/order?cartId=' + cartId,
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
             success: function(response) {
-                console.log('Đặt hàng thành công:', response);
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Đơn hàng của bạn đã được đặt thành công.',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    timer: 3000
+                }).then(() => {
+                    window.location.href = "/trang-chu";
+                });
             },
             error: function(error) {
-                console.log('Lỗi khi đặt hàng:', error);
+                Swal.fire({
+                    title: 'Thất bại!',
+                    text: 'Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    timer: 5000
+                }).then(() => {
+                    window.location.href ="/trang-chu";
+                });
             }
         });
+
+
     }
 
     document.getElementById("houseNumber").addEventListener("input", updateFullAddress);

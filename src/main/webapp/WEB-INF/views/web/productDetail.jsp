@@ -702,13 +702,13 @@
             });
 
             if (response.ok) {
-                alert(`Đã thêm size ${selectedSize} với số lượng ${quantity} vào giỏ hàng!`);
+                alert(`Đã thêm sản phẩm vào giỏ hàng!`);
             } else {
                 alert("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
             }
         } catch (error) {
             console.error('Error:', error);
-            alert(`Đã thêm size ${selectedSize} với số lượng ${quantity} vào giỏ hàng!`);
+            alert(`Đã thêm sản phẩm vào giỏ hàng!`);
         }
     }
 </script>

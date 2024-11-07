@@ -14,4 +14,5 @@ public interface ICartService {
     CartDTO loadCart(Long userId);
     void removeFromCart(Long cartItemId);
     void addOrUpdateCartItem(CartItemDTO cartItemDTO);
+    void removeCartItem(Long cartId);
 }

@@ -7,10 +7,7 @@ import com.javabackend.shop.service.IOrderService;
 import com.javabackend.shop.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController(value = "orderAPI")
 @RequestMapping("/api/order")
@@ -20,8 +17,9 @@ public class OrderAPI {
     @Autowired
     private ICartService cartService;
     @PostMapping
-    public OrderDTO addOrder(@RequestBody OrderDTO orderDTO){
+    public OrderDTO addOrder(@RequestBody OrderDTO orderDTO,@RequestParam Long cartId){
         orderService.addOrder(orderDTO);
+        cartService.removeCartItem(cartId);
         return orderDTO;
     }
 }

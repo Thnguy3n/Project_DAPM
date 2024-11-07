@@ -27,8 +27,12 @@ public class ShoppingCartAPI {
             @RequestBody CartItemDTO cartItemDTO,
             @RequestParam Long userId,
             @RequestParam(required = false, defaultValue = "false") boolean isUpdateQuantity) {
-
-        cartService.addToCart(cartItemDTO, userId, isUpdateQuantity);
+        if (SecurityContextHolder.getContext().getAuthentication() != null &&
+                SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+                !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+            userId = SecurityUtils.getPrincipal().getId();
+            cartService.addToCart(cartItemDTO, userId, isUpdateQuantity);
+        }
         return ResponseEntity.ok(cartItemDTO);
     }
 

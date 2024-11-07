@@ -6,8 +6,23 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/common/tablist.jsp" %>
+<style>
+    .card-product .product-img {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        max-width: 300px;
+        height: 300px;
+    }
 
+    .card-product .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
 <div class="preload preload-container">
     <div class="preload-logo">
         <div class="spinner"></div>
@@ -127,12 +142,13 @@
                         <div class="swiper tf-sw-product-sell wrap-sw-over" data-preview="4" data-tablet="3"
                              data-mobile="2" data-space-lg="30" data-space-md="15" data-pagination="2"
                              data-pagination-md="3" data-pagination-lg="3">
-                            <c:forEach items="${Bigsale}" var="item">
-                                <div class="swiper-wrapper">
+                            <div class="swiper-wrapper" style="width: fit-content;">
+                                <c:forEach items="${Bigsale}" var="item">
                                     <div class="swiper-slide" lazy="true">
                                         <div class="card-product bg_white radius-20">
                                             <div class="card-product-wrapper">
-                                                <a href="<c:url value="product-detail-${item.id}"/> " class="product-img">
+                                                <a href="<c:url value="product-detail-${item.id}"/>"
+                                                   class="product-img">
                                                     <img class="lazyload img-product"
                                                          src="/repository${item.image}"
                                                          data-src="/repository${item.image}" alt="image-product">
@@ -158,17 +174,19 @@
                                                 </div>
                                             </div>
                                             <div class="card-product-info has-padding">
-                                                <a href="<c:url value="product-detail-${item.id}"/> " class="title link">${item.title}</a>
-                                                <span class="price"><span class="fw-4 text-sale">${item.price} VNĐ </span> <span
-                                                        class="text_primary"><c:set var="salePrice" value="${item.price * 0.5}"/> ${salePrice}VNĐ</span>
+                                                <a href="<c:url value="product-detail-${item.id}"/>"
+                                                   class="title link">${item.title}</a>
+                                                <span class="price">
+                                                    <span class="fw-4 text-sale">${item.price} VNĐ </span>
+                                                    <span class="text_primary">
+                                                    <c:set var="salePrice" value="${item.price * 0.5}"/> ${salePrice} VNĐ
+                                                    </span>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                            </c:forEach>
-
+                                </c:forEach>
+                            </div>
                         </div>
                         <div class="nav-sw nav-next-slider nav-next-product box-icon w_46 round"><span
                                 class="icon icon-arrow-left"></span></div>
@@ -234,72 +252,6 @@
         </div>
     </section>
     <!-- /Icon box -->
-    <!-- Best seller -->
-    <section style="height: fit-content">
-        <div class="container-full">
-            <div class="bg_grey-5 radius-60 flat-spacing-21 " style="">
-                <div class="flat-title">
-                    <span class="title fw-6 wow fadeInUp" data-wow-delay="0s"> Giảm giá mạnh!!! </span>
-                </div>
-                <div class="container">
-                    <div class="wrap-carousel wrap-sw-2">
-                        <div class="swiper tf-sw-product-sell wrap-sw-over" data-preview="4" data-tablet="3"
-                             data-mobile="2" data-space-lg="30" data-space-md="15" data-pagination="2"
-                             data-pagination-md="3" data-pagination-lg="3">
-                            <c:forEach items="${Bigsale}" var="item">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide" lazy="true">
-                                        <div class="card-product bg_white radius-20">
-                                            <div class="card-product-wrapper">
-                                                <a href="product-detail.html" class="product-img">
-                                                    <img class="lazyload img-product"
-                                                         src="/repository${item.image}"
-                                                         data-src="/repository${item.image}" alt="image-product">
-                                                    <img class="lazyload img-hover"
-                                                         data-src="images/products/white-1.jpg"
-                                                         src="images/products/white-1.jpg" alt="image-product">
-                                                </a>
-                                                <div class="list-product-btn">
-                                                    <a href="javascript:void(0);"
-                                                       class="box-icon bg_white wishlist btn-icon-action">
-                                                        <span class="icon icon-heart"></span>
-                                                        <span class="tooltip">Add to Wishlist</span>
-                                                        <span class="icon icon-delete"></span>
-                                                    </a>
-                                                    <a href="#quick_view" data-bs-toggle="modal"
-                                                       class="box-icon bg_white quickview tf-btn-loading">
-                                                        <span class="icon icon-view"></span>
-                                                        <span class="tooltip">Quick View</span>
-                                                    </a>
-                                                </div>
-                                                <div class="on-sale-wrap text-end">
-                                                    <div class="on-sale-item">Sale</div>
-                                                </div>
-                                            </div>
-                                            <div class="card-product-info has-padding">
-                                                <a href="product-detail.html" class="title link">${item.title}</a>
-                                                <span class="price"><span class="fw-4 text-sale">${item.price} VNĐ </span> <span
-                                                        class="text_primary"><c:set var="salePrice" value="${item.price * 0.5}"/> ${salePrice}VNĐ</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </c:forEach>
-
-                        </div>
-                        <div class="nav-sw nav-next-slider nav-next-product box-icon w_46 round"><span
-                                class="icon icon-arrow-left"></span></div>
-                        <div class="nav-sw nav-prev-slider nav-prev-product box-icon w_46 round"><span
-                                class="icon icon-arrow-right"></span></div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- /Best seller -->
     <!-- brand -->
     <section class="flat-spacing-5 pt_0" style="height: fit-content">
         <div class="container" style="padding-top: 50px">
@@ -695,8 +647,6 @@
     </div>
 </div>
 <!-- /canvasSearch -->
-
-
 
 
 <!-- modal compare -->

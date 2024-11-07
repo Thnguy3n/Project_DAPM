@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: HP
@@ -23,27 +24,28 @@
         </div>
     </div>
     <!-- /page-title -->
-
-    <!-- page-cart -->
-    <section class="flat-spacing-11">
-        <div class="container">
-            <div class="tf-page-cart-wrap layout-2">
-                <div class="tf-page-cart-item">
-                    <h5 class="fw-5 mb_20">Thông tin vận chuyển</h5>
-                    <form class="form-checkout">
+    <form:form modelAttribute="newOrder" id="listForm" method="GET" var="item">
+        <!-- page-cart -->
+        <section class="flat-spacing-11">
+            <div class="container">
+                <div class="tf-page-cart-wrap layout-2">
+                    <div class="tf-page-cart-item">
+                        <h5 class="fw-5 mb_20">Thông tin vận chuyển</h5>
                         <fieldset class="box fieldset">
                             <label for="fullName">Họ tên</label>
-                            <input type="text" id="fullName" class="input-field" placeholder="Nhập họ tên">
+                            <form:input class="input-field" path="fullName"/>
                         </fieldset>
 
                         <fieldset class="box fieldset">
                             <label for="province">Tỉnh/Thành phố</label>
-                            <select id="province" class="select-field" onchange="updateDistricts(); updateSelectedLocation()">
+                            <select id="province" class="select-field"
+                                    onchange="updateDistricts(); updateSelectedLocation()">
                                 <option value="">Chọn Tỉnh/Thành phố</option>
                             </select>
 
                             <label for="district">Quận/Huyện</label>
-                            <select id="district" class="select-field" onchange="updateWards(); updateSelectedLocation()">
+                            <select id="district" class="select-field"
+                                    onchange="updateWards(); updateSelectedLocation()">
                                 <option value="">Chọn Quận/Huyện</option>
                             </select>
 
@@ -57,85 +59,117 @@
                         </div>
 
                         <fieldset class="box fieldset">
-                            <label for="address">Địa chỉ cụ thế</label>
-                            <input type="text" id="address" class="input-field" placeholder="Nhập địa chỉ">
+                            <label for="houseNumber">Địa chỉ cụ thế</label>
+                            <input type="text" id="houseNumber" class="input-field" placeholder="Nhập địa chỉ">
                         </fieldset>
 
                         <fieldset class="box fieldset">
-                            <label for="phone">Số điện thoại</label>
-                            <input type="number" id="phone" class="input-field" placeholder="Nhập số điện thoại">
+                            <label for="phoneNumber">Số điện thoại</label>
+                            <form:input class="input-field" path="phoneNumber"/>
                         </fieldset>
 
                         <fieldset class="box fieldset">
                             <label for="email">Email</label>
-                            <input type="email" id="email" class="input-field" placeholder="Nhập email">
+                            <form:input class="input-field" path="email"/>
                         </fieldset>
 
                         <fieldset class="box fieldset">
                             <label for="note">Ghi chú đơn hàng (tùy chọn)</label>
-                            <textarea name="note" id="note" class="input-field" placeholder="Nhập ghi chú"></textarea>
+                            <form:textarea path="note" rows="12"/>
                         </fieldset>
-                    </form>
-                </div>
-                <div class="tf-page-cart-footer">
-                    <div class="tf-cart-footer-inner">
-                        <h5 class="fw-5 mb_20">Đơn hàng của bạn</h5>
-                        <form class="tf-page-cart-checkout widget-wrap-checkout">
-                            <ul class="wrap-checkout-product">
-                                <li class="checkout-product-item">
-                                    <figure class="img-product">
-                                        <img src="images/products/brown.jpg" alt="product">
-                                        <span class="quantity">1</span>
-                                    </figure>
-                                    <div class="content">
-                                        <div class="info">
-                                            <p class="name">Ribbed modal T-shirt</p>
-                                            <span class="variant">Brown / M</span>
-                                        </div>
-                                        <span class="price">$25.00</span>
+
+                        <fieldset class="box fieldset">
+                            <button type="button" >Submit Ảo</button>
+                        </fieldset>
+
+                        <form:input type="hidden" path="address" id="address"/>
+                    </div>
+                    <div class="tf-page-cart-footer">
+                        <div class="tf-cart-footer-inner">
+                            <h5 class="fw-5 mb_20">Đơn hàng của bạn</h5>
+                            <div class="tf-page-cart-checkout widget-wrap-checkout">
+                                <ul class="wrap-checkout-product">
+                                    <c:set var="grandTotal" value="0"/>
+                                    <c:forEach var="item1" items="${cartItem}">
+                                        <c:set var="totalPriceOf1Product"
+                                               value="${(item1.price - (item1.price * (item1.discount / 100))) * item1.quantity}"/>
+                                        <c:set var="grandTotal" value="${grandTotal + totalPriceOf1Product}"/>
+                                        <li class="checkout-product-item">
+                                            <figure class="img-product">
+                                                <img src="/repository${item1.image}" alt="product">
+                                                <span class="quantity" id="quantity">${item1.quantity}</span>
+                                            </figure>
+                                            <div class="content">
+                                                <div class="info">
+                                                    <p class="name">${item1.productName}</p>
+                                                    <span class="variant" id="size">Size: ${item1.size}</span>
+                                                    <span class="variant-picker-item" >| Giá: ${item1.price - (item1.price * (item1.discount / 100))}</span>
+                                                </div>
+                                                <span class="price">
+                                                 <span class="price"><fmt:formatNumber value="${totalPriceOf1Product}"
+                                                                                       type="number"
+                                                                                       groupingUsed="true"/> VNĐ</span>
+                                                </span>
+                                                <input type="hidden" class="price1" value="${item1.price - (item1.price * (item1.discount / 100))}" />
+                                                <input type="hidden" class="total1" value="${totalPriceOf1Product}" />
+                                                <input type="hidden" class="productId1" value="${item1.productId}" />
+                                            </div>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                                <div class="coupon-box">
+                                    <input type="text" placeholder="Mã giảm giá">
+                                    <a href="#"
+                                       class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn">Apply</a>
+                                </div>
+                                <div class="d-flex justify-content-between line pb_20">
+                                    <h6 class="fw-5">Tổng cộng</h6>
+                                    <h6 class="total fw-5"><fmt:formatNumber value="${grandTotal}" type="number" groupingUsed="true"/> VNĐ</h6>
+                                    <input type="hidden" class="total" value="${grandTotal}" />
+                                </div>
+                                <div class="wd-check-payment">
+                                    <div class="fieldset-radio mb_20">
+                                        <input type="radio"  class="tf-check" checked>
+                                        <label>Chuyển khoản ngân hàng trực tiếp</label>
+
                                     </div>
-                                </li>
-
-                            </ul>
-                            <div class="coupon-box">
-                                <input type="text" placeholder="Mã giảm giá">
-                                <a href="#" class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn">Apply</a>
-                            </div>
-                            <div class="d-flex justify-content-between line pb_20">
-                                <h6 class="fw-5">Tổng cộng</h6>
-                                <h6 class="total fw-5">$122.00</h6>
-                            </div>
-                            <div class="wd-check-payment">
-                                <div class="fieldset-radio mb_20">
-                                    <input type="radio" name="payment" id="bank" class="tf-check" checked>
-                                    <label for="bank">Chuyển khoản ngân hàng trực tiếp</label>
-
+                                    <div class="fieldset-radio mb_20">
+                                        <input type="radio"  class="tf-check">
+                                        <label >Thanh toán khi nhận hàng</label>
+                                    </div>
+                                    <p class="text_black-2 mb_20">Dữ liệu cá nhân của bạn sẽ được sử dụng để xử lý đơn
+                                        hàng
+                                        của bạn, hỗ trợ trải nghiệm của bạn trên toàn bộ trang web này và cho các mục
+                                        đích
+                                        khác được mô tả trong <a href=""
+                                                                 class="text-decoration-underline">chính sách bảo
+                                            mật</a>
+                                        của chúng tôi.</p>
+                                    <div class="box-checkbox fieldset-radio mb_20">
+                                        <input type="checkbox" id="check-agree" class="tf-check">
+                                        <label for="check-agree" class="text_black-2">Tôi đã đọc và đồng ý với <a
+                                                href="terms-conditions.html" class="text-decoration-underline">các điều
+                                            khoản và điều kiện</a> của trang web.</label>
+                                    </div>
                                 </div>
-                                <div class="fieldset-radio mb_20">
-                                    <input type="radio" name="payment" id="delivery" class="tf-check">
-                                    <label for="delivery">Thanh toán khi nhận hàng</label>
-                                </div>
-                                <p class="text_black-2 mb_20">Dữ liệu cá nhân của bạn sẽ được sử dụng để xử lý đơn hàng của bạn, hỗ trợ trải nghiệm của bạn trên toàn bộ trang web này và cho các mục đích khác được mô tả trong <a href="privacy-policy.html" class="text-decoration-underline">chính sách bảo mật</a> của chúng tôi.</p>
-                                <div class="box-checkbox fieldset-radio mb_20">
-                                    <input type="checkbox" id="check-agree" class="tf-check">
-                                    <label for="check-agree" class="text_black-2">Tôi đã đọc và đồng ý với <a href="terms-conditions.html" class="text-decoration-underline">các điều khoản và điều kiện</a> của trang web.</label>
-                                </div>
+                                <button type="button" id="debugSubmit" onclick="debugFormSubmit()" class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">
+                                    Đặt hàng
+                                </button>
                             </div>
-                            <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">Đặt hàng</button>                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- page-cart -->
-
-
+        </section>
+        <!-- page-cart -->
+    </form:form>
 </div>
 
 <!-- gotop -->
 <div class="progress-wrap">
     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+              style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
     </svg>
 </div>
 <!-- /gotop -->
@@ -153,7 +187,8 @@
             <div class="tf-search-sticky">
                 <form class="tf-mini-search-frm">
                     <fieldset class="text">
-                        <input type="text" placeholder="Search" class="" name="text" tabindex="0" value="" aria-required="true" required="">
+                        <input type="text" placeholder="Search" class="" name="text" tabindex="0" value=""
+                               aria-required="true" required="">
                     </fieldset>
                     <button class="" type="submit"><i class="icon-search"></i></button>
                 </form>
@@ -310,7 +345,8 @@
                         </p>
                     </div>
                     <div>
-                        <img class="sizechart lazyload" data-src="images/shop/products/size_chart2.jpg" src="images/shop/products/size_chart2.jpg" alt="">
+                        <img class="sizechart lazyload" data-src="images/shop/products/size_chart2.jpg"
+                             src="images/shop/products/size_chart2.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -393,12 +429,55 @@
 
         const selectedLocationDiv = document.getElementById("selected-location");
         if (provinceName && districtName && wardName) {
-            selectedLocationDiv.textContent = provinceName+`,`+ districtName+`,`+ wardName;
+            selectedLocationDiv.textContent = wardName + `, ` + districtName + `, ` + provinceName;
         } else {
-            selectedLocationDiv.textContent = 'Tỉnh/Thành phố, Quận/Huyện, Phường/Xã';
+            selectedLocationDiv.textContent = 'Phường/Xã, Quận/Huyện, Tỉnh/Thành phố';
         }
+        updateFullAddress();
     }
 
+    function updateFullAddress() {
+        const houseNumberInput = document.getElementById("houseNumber").value.trim();
+        const locationText = document.getElementById("selected-location").textContent.trim();
+        const fullAddress = houseNumberInput + `, ` + locationText;
+        document.getElementById("address").value = fullAddress;
+    }
+
+    function debugFormSubmit() {
+        var data = {};
+        var formData = $('#listForm').serializeArray();
+        $.each(formData, function (i, v) {
+            data["" + v.name + ""] = v.value;
+        });
+        var orderItems = [];
+        $('.checkout-product-item').each(function() {
+            var item = {
+                productId: $(this).find('.productId1').val(),
+                productName: $(this).find('.name').text(),
+                size: $(this).find('.variant').text().replace('Size: ', ''),
+                quantity: $(this).find('.quantity').text(),
+                price: $(this).find('.price1').val(),
+                total: $(this).find('.total1').val()
+            };
+            orderItems.push(item);
+        });
+        data.orderItems = orderItems;
+        console.log(data);
+        $.ajax({
+            url: '/api/order',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function(response) {
+                console.log('Đặt hàng thành công:', response);
+            },
+            error: function(error) {
+                console.log('Lỗi khi đặt hàng:', error);
+            }
+        });
+    }
+
+    document.getElementById("houseNumber").addEventListener("input", updateFullAddress);
     document.addEventListener("DOMContentLoaded", loadData);
 
 </script>

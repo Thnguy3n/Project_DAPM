@@ -25,6 +25,9 @@ public class OrderItemEntity extends BaseEntity{
     @Column(name = "total")
     private Double total;
 
+    @Column(name = "size")
+    private String size;
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     private OrderEntity orderEntity;

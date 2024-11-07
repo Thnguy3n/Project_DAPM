@@ -28,8 +28,6 @@ public class OrderEntity extends BaseEntity {
     private String address;
     @Column(name = "note")
     private String note;
-    @Column(name = "orderDate")
-    private Date orderDate;
     @Column(name = "status")
     private String status;
     @ManyToOne

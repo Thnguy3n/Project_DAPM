@@ -181,7 +181,15 @@
                 contentType: "application/json",
                 dataType: "JSON",
                 success: function (respond) {
-                    console.log("success");
+                    Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Đơn hàng của bạn đã được đặt thành công.',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    timer: 3000
+                }).then(() => {
+                    window.location.href = "/admin/product-list";
+                });
                 },
                 error: function (respond) {
                     console.log("fail");

@@ -21,6 +21,7 @@
     <!-- Favicon and Touch Icons  -->
     <link rel="shortcut icon" href="images/logo/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="images/logo/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 </head>
 <body class="preload-wrapper">
@@ -115,6 +116,7 @@
 
 <!-- Javascript -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="js/carousel.js"></script>

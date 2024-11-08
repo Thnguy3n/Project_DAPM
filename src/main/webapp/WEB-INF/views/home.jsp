@@ -6,8 +6,23 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/common/tablist.jsp" %>
+<style>
+    .card-product .product-img {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        max-width: 300px;
+        height: 300px;
+    }
 
+    .card-product .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
 <div class="preload preload-container">
     <div class="preload-logo">
         <div class="spinner"></div>
@@ -127,12 +142,13 @@
                         <div class="swiper tf-sw-product-sell wrap-sw-over" data-preview="4" data-tablet="3"
                              data-mobile="2" data-space-lg="30" data-space-md="15" data-pagination="2"
                              data-pagination-md="3" data-pagination-lg="3">
-                            <c:forEach items="${Bigsale}" var="item">
-                                <div class="swiper-wrapper">
+                            <div class="swiper-wrapper" style="width: fit-content;">
+                                <c:forEach items="${Bigsale}" var="item">
                                     <div class="swiper-slide" lazy="true">
                                         <div class="card-product bg_white radius-20">
                                             <div class="card-product-wrapper">
-                                                <a href="<c:url value="product-detail-${item.id}"/> " class="product-img">
+                                                <a href="<c:url value="product-detail-${item.id}"/>"
+                                                   class="product-img">
                                                     <img class="lazyload img-product"
                                                          src="/repository${item.image}"
                                                          data-src="/repository${item.image}" alt="image-product">
@@ -158,17 +174,19 @@
                                                 </div>
                                             </div>
                                             <div class="card-product-info has-padding">
-                                                <a href="<c:url value="product-detail-${item.id}"/> " class="title link">${item.title}</a>
-                                                <span class="price"><span class="fw-4 text-sale">${item.price} VNĐ </span> <span
-                                                        class="text_primary"><c:set var="salePrice" value="${item.price * 0.5}"/> ${salePrice}VNĐ</span>
+                                                <a href="<c:url value="product-detail-${item.id}"/>"
+                                                   class="title link">${item.title}</a>
+                                                <span class="price">
+                                                    <span class="fw-4 text-sale">${item.price} VNĐ </span>
+                                                    <span class="text_primary">
+                                                    <c:set var="salePrice" value="${item.price * 0.5}"/> ${salePrice} VNĐ
+                                                    </span>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                            </c:forEach>
-
+                                </c:forEach>
+                            </div>
                         </div>
                         <div class="nav-sw nav-next-slider nav-next-product box-icon w_46 round"><span
                                 class="icon icon-arrow-left"></span></div>
@@ -234,8 +252,11 @@
         </div>
     </section>
     <!-- /Icon box -->
+<<<<<<< HEAD
     <!-- Best seller -->
     <!-- /Best seller -->
+=======
+>>>>>>> f64cc2aec677ac2f181234f549812fb26e9f2520
     <!-- brand -->
     <section class="flat-spacing-5 pt_0" style="height: fit-content">
         <div class="container" style="padding-top: 50px">
@@ -681,6 +702,7 @@
 </div>
 <!-- /canvasSearch -->
 
+<<<<<<< HEAD
 <!-- toolbarShopmb -->
 <div class="offcanvas offcanvas-start canvas-mb toolbar-shop-mobile" id="toolbarShopmb">
     <span class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></span>
@@ -879,6 +901,8 @@
 </div>
 <!-- /toolbarShopmb -->
 
+=======
+>>>>>>> f64cc2aec677ac2f181234f549812fb26e9f2520
 
 <!-- modal compare -->
 <div class="offcanvas offcanvas-bottom canvas-compare" id="compare">

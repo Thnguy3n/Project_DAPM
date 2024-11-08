@@ -113,4 +113,10 @@ public class CartServiceImpl implements ICartService {
         cartItemEntity.setSize(cartItemDTO.getSize());
     }
 
+    @Override
+    public void removeCartItem(Long cartId) {
+        List<CartItemEntity> cartItemEntity= cartItemRepository.findCartItemEntitiesByCartId(cartId);
+        cartItemRepository.deleteAll(cartItemEntity);
+    }
+
 }

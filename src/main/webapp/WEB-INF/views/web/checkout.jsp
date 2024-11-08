@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: HP
@@ -7,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/common/tablist.jsp" %>
+
 <!-- preload -->
 <div class="preload preload-container">
     <div class="preload-logo">
@@ -18,181 +20,157 @@
     <!-- page-title -->
     <div class="tf-page-title">
         <div class="container-full">
-            <div class="heading text-center">Đơn Hàng</div>
+            <div class="heading text-center">Thanh toán</div>
         </div>
     </div>
     <!-- /page-title -->
+    <form:form modelAttribute="newOrder" id="listForm" method="GET" var="item">
+        <!-- page-cart -->
+        <section class="flat-spacing-11">
+            <div class="container">
+                <div class="tf-page-cart-wrap layout-2">
+                    <div class="tf-page-cart-item">
+                        <h5 class="fw-5 mb_20">Thông tin vận chuyển</h5>
+                        <fieldset class="box fieldset">
+                            <label for="fullName">Họ tên</label>
+                            <form:input class="input-field" path="fullName"/>
+                        </fieldset>
 
-    <!-- page-cart -->
-    <section class="flat-spacing-11">
-        <div class="container">
-            <div class="tf-page-cart-wrap layout-2">
-                <div class="tf-page-cart-item">
-                    <h5 class="fw-5 mb_20">Chi tiết thanh toán</h5>
-                    <form class="form-checkout">
-                        <div class="box grid-2">
-                            <fieldset class="fieldset">
-                                <label for="first-name">Tên</label>
-                                <input type="text" id="first-name" placeholder="">
-                            </fieldset>
-                            <fieldset class="fieldset">
-                                <label for="last-name">Họ</label>
-                                <input type="text" id="last-name">
-                            </fieldset>
+                        <fieldset class="box fieldset">
+                            <label for="province">Tỉnh/Thành phố</label>
+                            <select id="province" class="select-field"
+                                    onchange="updateDistricts(); updateSelectedLocation()">
+                                <option value="">Chọn Tỉnh/Thành phố</option>
+                            </select>
+
+                            <label for="district">Quận/Huyện</label>
+                            <select id="district" class="select-field"
+                                    onchange="updateWards(); updateSelectedLocation()">
+                                <option value="">Chọn Quận/Huyện</option>
+                            </select>
+
+                            <label for="ward">Phường/Xã</label>
+                            <select id="ward" class="select-field" onchange="updateSelectedLocation()">
+                                <option value="">Chọn Phường/Xã</option>
+                            </select>
+                        </fieldset>
+
+                        <div id="selected-location" class="selected-location box fieldset">
                         </div>
+
                         <fieldset class="box fieldset">
-                            <label for="country">Tỉnh</label>
-                            <div class="select-custom">
-                                <select class="tf-select w-100" id="country" name="address[country]" data-default="">
-                                    <option value="---" data-provinces="[]">---</option>
-                                    <option value="An Giang">An Giang</option>
-                                    <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
-                                    <option value="Bắc Giang">Bắc Giang</option>
-                                    <option value="Bắc Kạn">Bắc Kạn</option>
-                                    <option value="Bạc Liêu">Bạc Liêu</option>
-                                    <option value="Bắc Ninh">Bắc Ninh</option>
-                                    <option value="Bến Tre">Bến Tre</option>
-                                    <option value="Bình Định">Bình Định</option>
-                                    <option value="Bình Dương">Bình Dương</option>
-                                    <option value="Bình Phước">Bình Phước</option>
-                                    <option value="Bình Thuận">Bình Thuận</option>
-                                    <option value="Cà Mau">Cà Mau</option>
-                                    <option value="Cần Thơ">Cần Thơ</option>
-                                    <option value="Cao Bằng">Cao Bằng</option>
-                                    <option value="Đà Nẵng">Đà Nẵng</option>
-                                    <option value="Đắk Lắk">Đắk Lắk</option>
-                                    <option value="Đắk Nông">Đắk Nông</option>
-                                    <option value="Điện Biên">Điện Biên</option>
-                                    <option value="Đồng Nai">Đồng Nai</option>
-                                    <option value="Đồng Tháp">Đồng Tháp</option>
-                                    <option value="Gia Lai">Gia Lai</option>
-                                    <option value="Hà Giang">Hà Giang</option>
-                                    <option value="Hà Nam">Hà Nam</option>
-                                    <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Hà Tĩnh">Hà Tĩnh</option>
-                                    <option value="Hải Dương">Hải Dương</option>
-                                    <option value="Hải Phòng">Hải Phòng</option>
-                                    <option value="Hậu Giang">Hậu Giang</option>
-                                    <option value="Hòa Bình">Hòa Bình</option>
-                                    <option value="Hưng Yên">Hưng Yên</option>
-                                    <option value="Khánh Hòa">Khánh Hòa</option>
-                                    <option value="Kiên Giang">Kiên Giang</option>
-                                    <option value="Kon Tum">Kon Tum</option>
-                                    <option value="Lai Châu">Lai Châu</option>
-                                    <option value="Lâm Đồng">Lâm Đồng</option>
-                                    <option value="Lạng Sơn">Lạng Sơn</option>
-                                    <option value="Lào Cai">Lào Cai</option>
-                                    <option value="Long An">Long An</option>
-                                    <option value="Nam Định">Nam Định</option>
-                                    <option value="Nghệ An">Nghệ An</option>
-                                    <option value="Ninh Bình">Ninh Bình</option>
-                                    <option value="Ninh Thuận">Ninh Thuận</option>
-                                    <option value="Phú Thọ">Phú Thọ</option>
-                                    <option value="Phú Yên">Phú Yên</option>
-                                    <option value="Quảng Bình">Quảng Bình</option>
-                                    <option value="Quảng Nam">Quảng Nam</option>
-                                    <option value="Quảng Ngãi">Quảng Ngãi</option>
-                                    <option value="Quảng Ninh">Quảng Ninh</option>
-                                    <option value="Quảng Trị">Quảng Trị</option>
-                                    <option value="Sóc Trăng">Sóc Trăng</option>
-                                    <option value="Sơn La">Sơn La</option>
-                                    <option value="Tây Ninh">Tây Ninh</option>
-                                    <option value="Thái Bình">Thái Bình</option>
-                                    <option value="Thái Nguyên">Thái Nguyên</option>
-                                    <option value="Thanh Hóa">Thanh Hóa</option>
-                                    <option value="Thừa Thiên Huế">Thừa Thiên Huế</option>
-                                    <option value="Tiền Giang">Tiền Giang</option>
-                                    <option value="TP Hồ Chí Minh">TP Hồ Chí Minh</option>
-                                    <option value="Trà Vinh">Trà Vinh</option>
-                                    <option value="Tuyên Quang">Tuyên Quang</option>
-                                    <option value="Vĩnh Long">Vĩnh Long</option>
-                                    <option value="Vĩnh Phúc">Vĩnh Phúc</option>
-                                    <option value="Yên Bái">Yên Bái</option>
-                                </select>
-                            </div>
+                            <label for="houseNumber">Địa chỉ cụ thế</label>
+                            <input type="text" id="houseNumber" class="input-field" placeholder="Nhập địa chỉ">
                         </fieldset>
 
                         <fieldset class="box fieldset">
-                            <label for="city">Thị trấn/Thành phố</label>
-                            <input type="text" id="city">
+                            <label for="phoneNumber">Số điện thoại</label>
+                            <form:input class="input-field" path="phoneNumber"/>
                         </fieldset>
-                        <fieldset class="box fieldset">
-                            <label for="address">Địa chỉ</label>
-                            <input type="text" id="address">
-                        </fieldset>
-                        <fieldset class="box fieldset">
-                            <label for="phone">Số điện thoại</label>
-                            <input type="number" id="phone">
-                        </fieldset>
+
                         <fieldset class="box fieldset">
                             <label for="email">Email</label>
-                            <input type="email" id="email">
+                            <form:input class="input-field" path="email"/>
                         </fieldset>
+
                         <fieldset class="box fieldset">
                             <label for="note">Ghi chú đơn hàng (tùy chọn)</label>
-                            <textarea name="note" id="note"></textarea>
+                            <form:textarea path="note" rows="12"/>
                         </fieldset>
-                    </form>
-                </div>
-                <div class="tf-page-cart-footer">
-                    <div class="tf-cart-footer-inner">
-                        <h5 class="fw-5 mb_20">Đơn hàng của bạn</h5>
-                        <form class="tf-page-cart-checkout widget-wrap-checkout">
-                            <ul class="wrap-checkout-product">
-                                <li class="checkout-product-item">
-                                    <figure class="img-product">
-                                        <img src="images/products/brown.jpg" alt="product">
-                                        <span class="quantity">1</span>
-                                    </figure>
-                                    <div class="content">
-                                        <div class="info">
-                                            <p class="name">Ribbed modal T-shirt</p>
-                                            <span class="variant">Brown / M</span>
-                                        </div>
-                                        <span class="price">$25.00</span>
+
+                        <fieldset class="box fieldset">
+                            <button type="button" >Submit Ảo</button>
+                        </fieldset>
+
+                        <form:input type="hidden" path="address" id="address"/>
+                    </div>
+                    <div class="tf-page-cart-footer">
+                        <div class="tf-cart-footer-inner">
+                            <h5 class="fw-5 mb_20">Đơn hàng của bạn</h5>
+                            <div class="tf-page-cart-checkout widget-wrap-checkout">
+                                <ul class="wrap-checkout-product">
+                                    <c:set var="grandTotal" value="0"/>
+                                    <c:forEach var="item1" items="${cartItem}">
+                                        <c:set var="totalPriceOf1Product"
+                                               value="${(item1.price - (item1.price * (item1.discount / 100))) * item1.quantity}"/>
+                                        <c:set var="grandTotal" value="${grandTotal + totalPriceOf1Product}"/>
+                                        <li class="checkout-product-item">
+                                            <figure class="img-product">
+                                                <img src="/repository${item1.image}" alt="product">
+                                                <span class="quantity" id="quantity">${item1.quantity}</span>
+                                            </figure>
+                                            <div class="content">
+                                                <div class="info">
+                                                    <p class="name">${item1.productName}</p>
+                                                    <span class="variant" id="size">Size: ${item1.size}</span>
+                                                    <span class="variant-picker-item" >| Giá: ${item1.price - (item1.price * (item1.discount / 100))}</span>
+                                                </div>
+                                                <span class="price">
+                                                 <span class="price"><fmt:formatNumber value="${totalPriceOf1Product}"
+                                                                                       type="number"
+                                                                                       groupingUsed="true"/> VNĐ</span>
+                                                </span>
+                                                <input type="hidden" class="price1" value="${item1.price - (item1.price * (item1.discount / 100))}" />
+                                                <input type="hidden" class="total1" value="${totalPriceOf1Product}" />
+                                                <input type="hidden" class="productId1" value="${item1.productId}" />
+                                                <input type="hidden" class="cardId1" value="${item1.cartId}" />
+                                            </div>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                                <div class="coupon-box">
+                                    <input type="text" placeholder="Mã giảm giá">
+                                    <a href="#"
+                                       class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn">Apply</a>
+                                </div>
+                                <div class="d-flex justify-content-between line pb_20">
+                                    <h6 class="fw-5">Tổng cộng</h6>
+                                    <h6 class="total fw-5"><fmt:formatNumber value="${grandTotal}" type="number" groupingUsed="true"/> VNĐ</h6>
+                                    <input type="hidden" class="total" value="${grandTotal}" />
+                                </div>
+                                <div class="wd-check-payment">
+                                    <div class="fieldset-radio mb_20">
+                                        <input type="radio"  class="tf-check" checked>
+                                        <label>Chuyển khoản ngân hàng trực tiếp</label>
+
                                     </div>
-                                </li>
-
-                            </ul>
-                            <div class="coupon-box">
-                                <input type="text" placeholder="Mã giảm giá">
-                                <a href="#" class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn">Apply</a>
-                            </div>
-                            <div class="d-flex justify-content-between line pb_20">
-                                <h6 class="fw-5">Tổng cộng</h6>
-                                <h6 class="total fw-5">$122.00</h6>
-                            </div>
-                            <div class="wd-check-payment">
-                                <div class="fieldset-radio mb_20">
-                                    <input type="radio" name="payment" id="bank" class="tf-check" checked>
-                                    <label for="bank">Chuyển khoản ngân hàng trực tiếp</label>
-
+                                    <div class="fieldset-radio mb_20">
+                                        <input type="radio"  class="tf-check">
+                                        <label >Thanh toán khi nhận hàng</label>
+                                    </div>
+                                    <p class="text_black-2 mb_20">Dữ liệu cá nhân của bạn sẽ được sử dụng để xử lý đơn
+                                        hàng
+                                        của bạn, hỗ trợ trải nghiệm của bạn trên toàn bộ trang web này và cho các mục
+                                        đích
+                                        khác được mô tả trong <a href=""
+                                                                 class="text-decoration-underline">chính sách bảo
+                                            mật</a>
+                                        của chúng tôi.</p>
+                                    <div class="box-checkbox fieldset-radio mb_20">
+                                        <input type="checkbox" id="check-agree" class="tf-check">
+                                        <label for="check-agree" class="text_black-2">Tôi đã đọc và đồng ý với <a
+                                                href="terms-conditions.html" class="text-decoration-underline">các điều
+                                            khoản và điều kiện</a> của trang web.</label>
+                                    </div>
                                 </div>
-                                <div class="fieldset-radio mb_20">
-                                    <input type="radio" name="payment" id="delivery" class="tf-check">
-                                    <label for="delivery">Thanh toán khi nhận hàng</label>
-                                </div>
-                                <p class="text_black-2 mb_20">Dữ liệu cá nhân của bạn sẽ được sử dụng để xử lý đơn hàng của bạn, hỗ trợ trải nghiệm của bạn trên toàn bộ trang web này và cho các mục đích khác được mô tả trong <a href="privacy-policy.html" class="text-decoration-underline">chính sách bảo mật</a> của chúng tôi.</p>
-                                <div class="box-checkbox fieldset-radio mb_20">
-                                    <input type="checkbox" id="check-agree" class="tf-check">
-                                    <label for="check-agree" class="text_black-2">Tôi đã đọc và đồng ý với <a href="terms-conditions.html" class="text-decoration-underline">các điều khoản và điều kiện</a> của trang web.</label>
-                                </div>
+                                <button type="button" id="debugSubmit" onclick="debugFormSubmit()" class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">
+                                    Đặt hàng
+                                </button>
                             </div>
-                            <button class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">Đặt hàng</button>                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- page-cart -->
-
-
+        </section>
+        <!-- page-cart -->
+    </form:form>
 </div>
 
 <!-- gotop -->
 <div class="progress-wrap">
     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
+              style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 286.138;"></path>
     </svg>
 </div>
 <!-- /gotop -->
@@ -210,7 +188,8 @@
             <div class="tf-search-sticky">
                 <form class="tf-mini-search-frm">
                     <fieldset class="text">
-                        <input type="text" placeholder="Search" class="" name="text" tabindex="0" value="" aria-required="true" required="">
+                        <input type="text" placeholder="Search" class="" name="text" tabindex="0" value=""
+                               aria-required="true" required="">
                     </fieldset>
                     <button class="" type="submit"><i class="icon-search"></i></button>
                 </form>
@@ -367,7 +346,8 @@
                         </p>
                     </div>
                     <div>
-                        <img class="sizechart lazyload" data-src="images/shop/products/size_chart2.jpg" src="images/shop/products/size_chart2.jpg" alt="">
+                        <img class="sizechart lazyload" data-src="images/shop/products/size_chart2.jpg"
+                             src="images/shop/products/size_chart2.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -375,7 +355,152 @@
     </div>
 </div>
 <!-- /modal find_size -->
+<script>
+    let provincesData = {};
+    let districtsData = {};
+    let wardsData = {};
 
+    async function loadData() {
+        try {
+            const provincesResponse = await fetch('/api/tinh_tp');
+            provincesData = await provincesResponse.json();
+            const districtsResponse = await fetch('/api/quan_huyen');
+            districtsData = await districtsResponse.json();
+            const wardsResponse = await fetch('/api/xa_phuong');
+            wardsData = await wardsResponse.json();
+            populateProvinces();
+        } catch (error) {
+            console.error("Error loading data:", error);
+        }
+    }
+
+    function populateProvinces() {
+        const provinceSelect = document.getElementById("province");
+        provinceSelect.innerHTML = '<option value="">Chọn Tỉnh/Thành phố</option>';
+        for (const code in provincesData) {
+            const option = document.createElement("option");
+            option.value = code;
+            option.text = provincesData[code].name_with_type;
+            provinceSelect.add(option);
+        }
+    }
+
+    function updateDistricts() {
+        const provinceCode = document.getElementById("province").value;
+        const districtSelect = document.getElementById("district");
+        const wardSelect = document.getElementById("ward");
+
+        districtSelect.innerHTML = '<option value="">Chọn Quận/Huyện</option>';
+        wardSelect.innerHTML = '<option value="">Chọn Phường/Xã</option>';
+
+        for (const code in districtsData) {
+            if (districtsData[code].parent_code === provinceCode) {
+                const option = document.createElement("option");
+                option.value = code;
+                option.text = districtsData[code].name_with_type;
+                districtSelect.add(option);
+            }
+        }
+    }
+
+    function updateWards() {
+        const districtCode = document.getElementById("district").value;
+        const wardSelect = document.getElementById("ward");
+
+        wardSelect.innerHTML = '<option value="">Chọn Phường/Xã</option>';
+
+        for (const code in wardsData) {
+            if (wardsData[code].parent_code === districtCode) {
+                const option = document.createElement("option");
+                option.value = code;
+                option.text = wardsData[code].name_with_type;
+                wardSelect.add(option);
+            }
+        }
+    }
+
+    function updateSelectedLocation() {
+        const provinceSelect = document.getElementById("province");
+        const districtSelect = document.getElementById("district");
+        const wardSelect = document.getElementById("ward");
+
+        const provinceName = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
+        const districtName = districtSelect.options[districtSelect.selectedIndex]?.text || '';
+        const wardName = wardSelect.options[wardSelect.selectedIndex]?.text || '';
+
+        const selectedLocationDiv = document.getElementById("selected-location");
+        if (provinceName && districtName && wardName) {
+            selectedLocationDiv.textContent = wardName + `, ` + districtName + `, ` + provinceName;
+        } else {
+            selectedLocationDiv.textContent = 'Phường/Xã, Quận/Huyện, Tỉnh/Thành phố';
+        }
+        updateFullAddress();
+    }
+
+    function updateFullAddress() {
+        const houseNumberInput = document.getElementById("houseNumber").value.trim();
+        const locationText = document.getElementById("selected-location").textContent.trim();
+        const fullAddress = houseNumberInput + `, ` + locationText;
+        document.getElementById("address").value = fullAddress;
+    }
+
+    function debugFormSubmit() {
+        var data = {};
+        var formData = $('#listForm').serializeArray();
+        $.each(formData, function (i, v) {
+            data["" + v.name + ""] = v.value;
+        });
+        var orderItems = [];
+        $('.checkout-product-item').each(function() {
+            var item = {
+                productId: $(this).find('.productId1').val(),
+                productName: $(this).find('.name').text(),
+                size: $(this).find('.variant').text().replace('Size: ', ''),
+                quantity: $(this).find('.quantity').text(),
+                price: $(this).find('.price1').val(),
+                total: $(this).find('.total1').val(),
+            };
+            orderItems.push(item);
+        });
+        data.orderItems = orderItems;
+        var cartId = $('.checkout-product-item').find('.cardId1').val();
+        console.log(data);
+        $.ajax({
+            url: '/api/order?cartId=' + cartId,
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function(response) {
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Đơn hàng của bạn đã được đặt thành công.',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    timer: 3000
+                }).then(() => {
+                    window.location.href = "/trang-chu";
+                });
+            },
+            error: function(error) {
+                Swal.fire({
+                    title: 'Thất bại!',
+                    text: 'Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    timer: 5000
+                }).then(() => {
+                    window.location.href ="/trang-chu";
+                });
+            }
+        });
+
+
+    }
+
+    document.getElementById("houseNumber").addEventListener("input", updateFullAddress);
+    document.addEventListener("DOMContentLoaded", loadData);
+
+</script>
 <!-- Javascript -->
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>

@@ -46,5 +46,8 @@ public class ProductEntity extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
     List<GaleryEntity> galeryEntities=new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "productEntity")
+    List<OrderItemEntity>  orderItemEntities=new ArrayList<>();
+
 
 }

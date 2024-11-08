@@ -180,7 +180,7 @@
                             headers: {
                                 'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({ cartItemId: cartItemId })
+                            body: JSON.stringify(cartItemId)
                         })
                             .then(response => {
                                 if (response.ok) {

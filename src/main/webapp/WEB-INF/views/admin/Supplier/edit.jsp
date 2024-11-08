@@ -61,7 +61,6 @@
                                                     <form:input class="form-control" path="quantity"/>
                                                 </div>
                                             </div>
-
                                             <div class="form-group">
                                                 <label class="col-xs-3"></label>
                                                 <div class="col-xs-9">

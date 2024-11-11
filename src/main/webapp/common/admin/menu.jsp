@@ -32,6 +32,16 @@
             <i class="fas fa-fw fa-list-alt"></i>
             <span>Quản lý danh mục sản phẩm  </span></a>
     </li>
+    <li class="nav-item">
+        <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/supplier-list"/>" >
+            <i class="fas fa-fw fa-user-friends"></i>
+            <span>Quản lý nhà cung cấp  </span></a>
+    </li>
+    <li class="nav-item">
+        <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/order-list"/>" >
+            <i class="fas fa-fw fa-notes-medical"></i>
+            <span>Quản lý hóa đơn  </span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

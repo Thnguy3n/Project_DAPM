@@ -95,10 +95,13 @@
                 container.innerHTML = '';
 
                 let totalPrice = 0;
+                let totalItems = 0;
                 let row = '';
                 cartData.items.forEach((item, index) => {
                     const itemTotal = (item.price - (item.price * item.discount / 100)) * item.quantity;
                     totalPrice += itemTotal;
+                    totalItems += item.quantity;
+
 
                     row += '<div class="tf-mini-cart-item">';
                     row += '<div class="tf-mini-cart-image">';
@@ -119,16 +122,19 @@
                     row += '</div>';
                     row += '</div>';
                 });
-
+                document.querySelector(".count-box").textContent= totalItems;
                 container.innerHTML += row;
                 document.getElementById("totalPriceDisplay").textContent = formatMoney(totalPrice) + ' VNĐ';
 
                 function updateCartTotal() {
                     let newTotalPrice = 0;
+                    let newTotalItems = 0;
                     cartData.items.forEach((item, index) => {
                         const quantity = parseInt(document.getElementById(`quantity1-` + index).value) || 1;
                         newTotalPrice += (item.price - (item.price * item.discount / 100)) * quantity;
+                        newTotalItems += quantity;
                     });
+                    document.querySelector(".count-box").textContent = newTotalItems;
                     document.getElementById("totalPriceDisplay").textContent = formatMoney(newTotalPrice) + ' VNĐ';
                 }
 

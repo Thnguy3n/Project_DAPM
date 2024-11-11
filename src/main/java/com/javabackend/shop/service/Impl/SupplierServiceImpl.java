@@ -24,4 +24,22 @@ public class SupplierServiceImpl implements ISupplierService {
                 .map(supplier -> modelMapper.map(supplier, SupplierDTO.class))
                 .collect(Collectors.toList());
     }
+    @Override
+    public void addOrUpdateSupplier(SupplierDTO supplierDTO) {
+        SupplierEntity supplier = modelMapper.map(supplierDTO, SupplierEntity.class);
+        supplierRepository.save(supplier);
+    }
+
+    @Override
+    public SupplierDTO findSupplierEntityById(Long id) {
+        SupplierEntity supplierEntity= supplierRepository.findById(id).get();
+        SupplierDTO supplierDTO = modelMapper.map(supplierEntity, SupplierDTO.class);
+        return supplierDTO;
+    }
+
+    @Override
+    public void deleteSuppliers(List<Long> Id) {
+        List<SupplierEntity> supplierEntities = supplierRepository.findAllById(Id);
+        supplierRepository.deleteAll(supplierEntities);
+    }
 }

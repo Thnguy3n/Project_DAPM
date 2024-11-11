@@ -154,7 +154,8 @@
                                     </div>
                                 </div>
                                 <security:authorize access="isAuthenticated()">
-                                    <div class="tf-product-info-buy-button">
+<%--                                <c:if test="${productDTO.inventory =0 }"></c:if>--%>
+                                        <div class="tf-product-info-buy-button">
                                         <form class="">
                                             <button onclick="addToCart()"
                                                     class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn ">
@@ -173,8 +174,8 @@
                                                 <span class="icon icon-check"></span>
                                             </a>
                                             <div class="w-100">
-                                                <a href="#" class="btns-full">Mua bằng <img
-                                                        src="images/payments/paypal.png"
+                                                <a href="#" class="btns-full fs-16">Mua bằng <img style="max-width: 50px; max-height: 30px"
+                                                        src="images/payments/Logo-VNPAY-QR-1.webp"
                                                         alt=""></a>
                                                 <a href="#" class="payment-more-option">Nhiều lựa chọn thanh toán
                                                     hơn</a>

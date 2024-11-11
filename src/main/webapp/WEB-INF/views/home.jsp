@@ -153,8 +153,8 @@
                                                          src="/repository${item.image}"
                                                          data-src="/repository${item.image}" alt="image-product">
                                                     <img class="lazyload img-hover"
-                                                         data-src="images/products/white-1.jpg"
-                                                         src="images/products/white-1.jpg" alt="image-product">
+                                                         data-src="/repository${item.image}"
+                                                         src="/repository${item.image}" alt="image-product">
                                                 </a>
                                                 <div class="list-product-btn">
                                                     <a href="javascript:void(0);"
@@ -177,9 +177,9 @@
                                                 <a href="<c:url value="product-detail-${item.id}"/>"
                                                    class="title link">${item.title}</a>
                                                 <span class="price">
-                                                    <span class="fw-4 text-sale">${item.price} VNĐ </span>
+                                                    <span class="fw-4 text-sale"><fmt:formatNumber value="${item.price}" pattern="#,###"/> VNĐ </span>
                                                     <span class="text_primary">
-                                                    <c:set var="salePrice" value="${item.price * 0.5}"/> ${salePrice} VNĐ
+                                                    <fmt:formatNumber value="${ item.price * 0.5}" pattern="#,###"/> VNĐ
                                                     </span>
                                                 </span>
                                             </div>

@@ -185,7 +185,7 @@
                 success: function (respond) {
                     Swal.fire({
                     title: 'Thành công!',
-                    text: 'Đơn hàng của bạn đã được đặt thành công.',
+                    text: 'Sản phẩm được chỉnh sửa hoặc thêm mới thành công.',
                     icon: 'success',
                     confirmButtonText: 'OK',
                     timer: 3000

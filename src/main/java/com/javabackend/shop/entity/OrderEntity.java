@@ -35,5 +35,7 @@ public class OrderEntity extends BaseEntity {
     private UserEntity userEntity;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "orderEntity")
     List<OrderItemEntity>orderItemEntities=new ArrayList<>();
+    @OneToOne(mappedBy = "orderEntity", fetch = FetchType.LAZY)
+    private PaymentEntity paymentEntity;
 
 }

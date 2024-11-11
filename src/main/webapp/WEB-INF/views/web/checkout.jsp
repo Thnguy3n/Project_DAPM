@@ -8,7 +8,44 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/common/tablist.jsp" %>
+<style>
+    .mt_10 {
+        margin-top: 10px !important;
+    }
 
+    .mt_20 {
+        margin-top: 20px !important;
+    }
+
+    .location-fields {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .location-fields .select-custom {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .location-fields label {
+        display: none;
+    }
+
+    .location-fields .select-custom label {
+        display: block;
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 0.875em;
+        margin-top: 5px;
+    }
+
+</style>
 <!-- preload -->
 <div class="preload preload-container">
     <div class="preload-logo">
@@ -30,56 +67,60 @@
             <div class="container">
                 <div class="tf-page-cart-wrap layout-2">
                     <div class="tf-page-cart-item">
-                        <h5 class="fw-5 mb_20">Thông tin vận chuyển</h5>
-                        <fieldset class="box fieldset">
-                            <label for="fullName">Họ tên</label>
-                            <form:input class="input-field" path="fullName"/>
+                        <h5 class="mb_10 mt_10 fw-4 fw-5">Thông tin vận chuyển</h5>
+                        <fieldset class="box fieldset mb_10">
+                            <label for="fullName">Họ tên*</label>
+                            <form:input class="input-field" placeholder="Họ và tên người nhận" path="fullName"/>
                         </fieldset>
 
-                        <fieldset class="box fieldset">
-                            <label for="province">Tỉnh/Thành phố</label>
-                            <select id="province" class="select-field"
-                                    onchange="updateDistricts(); updateSelectedLocation()">
-                                <option value="">Chọn Tỉnh/Thành phố</option>
-                            </select>
+                        <fieldset class="box fieldset location-fields mt_20">
+                            <label for="province" class="mb_10 mt_10 fw-4 fw-5">Tỉnh/Thành phố</label>
+                            <div class="select-custom">
+                                <select id="province" class="tf-select w-100"
+                                        onchange="updateDistricts(); updateSelectedLocation()">
+                                    <option value="">Chọn Tỉnh/Thành phố</option>
+                                </select>
+                            </div>
 
-                            <label for="district">Quận/Huyện</label>
-                            <select id="district" class="select-field"
-                                    onchange="updateWards(); updateSelectedLocation()">
-                                <option value="">Chọn Quận/Huyện</option>
-                            </select>
+                            <label for="district" class="mb_10 mt_10 fw-4 fw-5">Quận/Huyện</label>
+                            <div class="select-custom">
+                                <select id="district" class="tf-select w-100"
+                                        onchange="updateWards(); updateSelectedLocation()">
+                                    <option value="">Chọn Quận/Huyện</option>
+                                </select>
+                            </div>
 
-                            <label for="ward">Phường/Xã</label>
-                            <select id="ward" class="select-field" onchange="updateSelectedLocation()">
-                                <option value="">Chọn Phường/Xã</option>
-                            </select>
+                            <label for="ward" class="mb_10 mt_10 fw-4 fw-5">Phường/Xã</label>
+                            <div class="select-custom">
+                                <select id="ward" class="tf-select w-100" onchange="updateSelectedLocation()">
+                                    <option value="">Chọn Phường/Xã</option>
+                                </select>
+                            </div>
                         </fieldset>
 
-                        <div id="selected-location" class="selected-location box fieldset">
+
+                        <div id="selected-location" hidden="hidden" class="mb_10 mt_10 selected-location box fieldset">
                         </div>
 
                         <fieldset class="box fieldset">
-                            <label for="houseNumber">Địa chỉ cụ thế</label>
-                            <input type="text" id="houseNumber" class="input-field" placeholder="Nhập địa chỉ">
+                            <label for="houseNumber" class="mb_10 mt_10 fw-4 fw-5">Địa chỉ cụ thể*</label>
+                            <input type="text" id="houseNumber" class="input-field"
+                                   placeholder="Nhập địa chỉ giao hàng">
                         </fieldset>
 
                         <fieldset class="box fieldset">
-                            <label for="phoneNumber">Số điện thoại</label>
-                            <form:input class="input-field" path="phoneNumber"/>
+                            <label for="phoneNumber" class="mb_10 mt_10 fw-4 fw-5">Số điện thoại*</label>
+                            <form:input class="input-field" placeholder="Số điện thoại người nhân" path="phoneNumber"/>
                         </fieldset>
 
                         <fieldset class="box fieldset">
-                            <label for="email">Email</label>
-                            <form:input class="input-field" path="email"/>
+                            <label for="email" class="mb_10 mt_10 fw-4 fw-5">Email*</label>
+                            <form:input class="input-field" placeholder="Email" path="email"/>
                         </fieldset>
 
                         <fieldset class="box fieldset">
-                            <label for="note">Ghi chú đơn hàng (tùy chọn)</label>
+                            <label for="note" class="mb_10 mt_10 fw-4 fw-5">Ghi chú đơn hàng (tùy chọn)</label>
                             <form:textarea path="note" rows="12"/>
-                        </fieldset>
-
-                        <fieldset class="box fieldset">
-                            <button type="button" >Submit Ảo</button>
                         </fieldset>
 
                         <form:input type="hidden" path="address" id="address"/>
@@ -103,17 +144,18 @@
                                                 <div class="info">
                                                     <p class="name">${item1.productName}</p>
                                                     <span class="variant" id="size">Size: ${item1.size}</span>
-                                                    <span class="variant-picker-item" >| Giá: ${item1.price - (item1.price * (item1.discount / 100))}</span>
+                                                    <span class="variant-picker-item">| Giá: ${item1.price - (item1.price * (item1.discount / 100))}</span>
                                                 </div>
                                                 <span class="price">
                                                  <span class="price"><fmt:formatNumber value="${totalPriceOf1Product}"
                                                                                        type="number"
                                                                                        groupingUsed="true"/> VNĐ</span>
                                                 </span>
-                                                <input type="hidden" class="price1" value="${item1.price - (item1.price * (item1.discount / 100))}" />
-                                                <input type="hidden" class="total1" value="${totalPriceOf1Product}" />
-                                                <input type="hidden" class="productId1" value="${item1.productId}" />
-                                                <input type="hidden" class="cardId1" value="${item1.cartId}" />
+                                                <input type="hidden" class="price1"
+                                                       value="${item1.price - (item1.price * (item1.discount / 100))}"/>
+                                                <input type="hidden" class="total1" value="${totalPriceOf1Product}"/>
+                                                <input type="hidden" class="productId1" value="${item1.productId}"/>
+                                                <input type="hidden" class="cardId1" value="${item1.cartId}"/>
                                             </div>
                                         </li>
                                     </c:forEach>
@@ -125,18 +167,22 @@
                                 </div>
                                 <div class="d-flex justify-content-between line pb_20">
                                     <h6 class="fw-5">Tổng cộng</h6>
-                                    <h6 class="total fw-5"><fmt:formatNumber value="${grandTotal}" type="number" groupingUsed="true"/> VNĐ</h6>
-                                    <input type="hidden" class="total" value="${grandTotal}" />
+                                    <h6 class="total fw-5"><fmt:formatNumber value="${grandTotal}" type="number"
+                                                                             groupingUsed="true"/> VNĐ</h6>
+                                    <input type="hidden" class="total" value="${grandTotal}"/>
                                 </div>
                                 <div class="wd-check-payment">
                                     <div class="fieldset-radio mb_20">
-                                        <input type="radio"  class="tf-check" checked>
-                                        <label>Chuyển khoản ngân hàng trực tiếp</label>
-
+                                        <input type="radio" name="payment_method" class="tf-check" checked>
+                                        <label>Thanh toán qua ví điện tử VNPAY
+                                            <img style="max-width: 50px; max-height: 30px"
+                                                 src="images/payments/Logo-VNPAY-QR-1.webp"
+                                                 alt="">
+                                        </label>
                                     </div>
                                     <div class="fieldset-radio mb_20">
-                                        <input type="radio"  class="tf-check">
-                                        <label >Thanh toán khi nhận hàng</label>
+                                        <input type="radio" name="payment_method" class="tf-check">
+                                        <label>Thanh toán khi nhận hàng</label>
                                     </div>
                                     <p class="text_black-2 mb_20">Dữ liệu cá nhân của bạn sẽ được sử dụng để xử lý đơn
                                         hàng
@@ -153,7 +199,8 @@
                                             khoản và điều kiện</a> của trang web.</label>
                                     </div>
                                 </div>
-                                <button type="button" id="debugSubmit" onclick="debugFormSubmit()" class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">
+                                <button type="button" id="debugSubmit" onclick="debugFormSubmit()"
+                                        class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">
                                     Đặt hàng
                                 </button>
                             </div>
@@ -431,8 +478,6 @@
         const selectedLocationDiv = document.getElementById("selected-location");
         if (provinceName && districtName && wardName) {
             selectedLocationDiv.textContent = wardName + `, ` + districtName + `, ` + provinceName;
-        } else {
-            selectedLocationDiv.textContent = 'Phường/Xã, Quận/Huyện, Tỉnh/Thành phố';
         }
         updateFullAddress();
     }
@@ -440,61 +485,88 @@
     function updateFullAddress() {
         const houseNumberInput = document.getElementById("houseNumber").value.trim();
         const locationText = document.getElementById("selected-location").textContent.trim();
-        const fullAddress = houseNumberInput + `, ` + locationText;
+        const fullAddress = houseNumberInput + ` ` + locationText;
         document.getElementById("address").value = fullAddress;
     }
 
     function debugFormSubmit() {
-        var data = {};
-        var formData = $('#listForm').serializeArray();
-        $.each(formData, function (i, v) {
-            data["" + v.name + ""] = v.value;
-        });
-        var orderItems = [];
-        $('.checkout-product-item').each(function() {
-            var item = {
-                productId: $(this).find('.productId1').val(),
-                productName: $(this).find('.name').text(),
-                size: $(this).find('.variant').text().replace('Size: ', ''),
-                quantity: $(this).find('.quantity').text(),
-                price: $(this).find('.price1').val(),
-                total: $(this).find('.total1').val(),
-            };
-            orderItems.push(item);
-        });
-        data.orderItems = orderItems;
-        var cartId = $('.checkout-product-item').find('.cardId1').val();
-        console.log(data);
-        $.ajax({
-            url: '/api/order?cartId=' + cartId,
-            type: 'POST',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
-            success: function(response) {
-                Swal.fire({
-                    title: 'Thành công!',
-                    text: 'Đơn hàng của bạn đã được đặt thành công.',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                    timer: 3000
-                }).then(() => {
-                    window.location.href = "/trang-chu";
-                });
-            },
-            error: function(error) {
-                Swal.fire({
-                    title: 'Thất bại!',
-                    text: 'Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.',
-                    icon: 'error',
-                    confirmButtonText: 'OK',
-                    timer: 5000
-                }).then(() => {
-                    window.location.href ="/trang-chu";
-                });
-            }
-        });
-
-
+        let isValid = true;
+        if ($('#province').val() === "") {
+            $('#province').after(`<span class="error-message" style="color:red; font-size: 0.875em; display: block; margin-top: 5px;">Vui lòng chọn Tỉnh/Thành phố</span>`);
+            isValid = false;
+        }
+        if ($('#district').val() === "") {
+            $('#district').after(`<span class="error-message" style="color:red; font-size: 0.875em; display: block; margin-top: 5px;">Vui lòng chọn Quận/Huyện</span>`);
+            isValid = false;
+        }
+        if ($('#ward').val() === "") {
+            $('#ward').after(`<span class="error-message" style="color:red; font-size: 0.875em; display: block; margin-top: 5px;">Vui lòng chọn Phường/Xã</span>`);
+            isValid = false;
+        }
+        if ($('#houseNumber').val() === "") {
+            $('#houseNumber').after(`<span class="error-message" style="color:red; font-size: 0.875em; display: block; margin-top: 5px;">Vui lòng chọn địa chỉ cụ thể</span>`);
+            isValid = false;
+        }
+        if (isValid) {
+            var data = {};
+            var formData = $('#listForm').serializeArray();
+            $.each(formData, function (i, v) {
+                data["" + v.name + ""] = v.value;
+            });
+            var orderItems = [];
+            $('.checkout-product-item').each(function () {
+                var item = {
+                    productId: $(this).find('.productId1').val(),
+                    productName: $(this).find('.name').text(),
+                    size: $(this).find('.variant').text().replace('Size: ', ''),
+                    quantity: $(this).find('.quantity').text(),
+                    price: $(this).find('.price1').val(),
+                    total: $(this).find('.total1').val(),
+                };
+                orderItems.push(item);
+            });
+            data.orderItems = orderItems;
+            var cartId = $('.checkout-product-item').find('.cardId1').val();
+            console.log(data);
+            $.ajax({
+                url: '/api/order?cartId=' + cartId,
+                type: 'POST',
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                success: function (response) {
+                    Swal.fire({
+                        title: 'Thành công!',
+                        text: 'Đơn hàng của bạn đã được đặt thành công.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        timer: 3000
+                    }).then(() => {
+                        window.location.href = "/trang-chu";
+                    });
+                },
+                error: function (error) {
+                    if (error.status === 400 && error.responseJSON) {
+                        $('.error-message').remove();
+                        $.each(error.responseJSON, function (field, message) {
+                            let inputField = $(`[name="` + field + `"]`);
+                            if (inputField.length) {
+                                inputField.before(`<span class="error-message" style="color:red"> ` + message + ` </span>`);
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Thất bại!',
+                            text: 'Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.',
+                            icon: 'error',
+                            confirmButtonText: 'OK',
+                            timer: 5000
+                        }).then(() => {
+                            window.location.href = "/trang-chu";
+                        });
+                    }
+                }
+            });
+        }
     }
 
     document.getElementById("houseNumber").addEventListener("input", updateFullAddress);

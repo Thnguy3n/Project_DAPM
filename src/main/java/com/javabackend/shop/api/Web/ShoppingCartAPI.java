@@ -43,7 +43,7 @@ public class ShoppingCartAPI {
                 SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
                 !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
             userId = SecurityUtils.getPrincipal().getId();
-            return cartService.loadCart(userId);
+                return cartService.loadCart(userId);
         }
         return new CartDTO();
     }

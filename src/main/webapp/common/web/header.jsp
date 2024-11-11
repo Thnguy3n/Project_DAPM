@@ -85,13 +85,13 @@
                     </security:authorize>
 
                     <li class="nav-wishlist">
-                        <a href="wishlist.html" class="nav-icon-item">
-                            <i class="icon icon-heart"></i><span class="count-box">0</span>
+                        <a href="" class="nav-icon-item">
+                            <i class="icon icon-heart"></i><span class=""></span>
                         </a>
                     </li>
                     <li class="nav-cart">
                         <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item">
-                            <i class="icon icon-bag"></i><span class="count-box">0</span>
+                            <i class="icon icon-bag"></i><span class="count-box"></span>
                         </a>
                     </li>
                 </ul>
@@ -203,3 +203,8 @@
     </div>
 </div>
 <!-- /modal login -->
+
+<script>
+
+
+</script>

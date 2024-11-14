@@ -39,6 +39,11 @@ public class HomeController {
         return mav;
 
     }
+    @RequestMapping(value = "/OrderHistory", method = RequestMethod.GET)
+    public ModelAndView OrderHistory() {
+        ModelAndView mav = new ModelAndView("web/OrderHistory");
+        return mav;
+    }
     @RequestMapping(value = "/payment_success", method = RequestMethod.GET)
     public ModelAndView paymentSuccessPage() {
         ModelAndView mav = new ModelAndView("web/PaymentSuccessful");

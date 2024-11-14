@@ -69,7 +69,7 @@
                         <li class="nav-account dropdown">
                             <a href="#" class="nav-icon-item dropdown-toggle" id="userDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="icon icon-account"></i>
+                                <i class="icon icon-account"></i> <%=SecurityUtils.getPrincipal().getFullName()%>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -77,7 +77,13 @@
                                     <a class="dropdown-item" href="#" data-bs-toggle="modal"
                                        data-bs-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
-                                        Logout
+                                        Đăng xuất
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/OrderHistory" >
+                                        <i class="fas fa-shipping-fast fa-sm fa-fw me-2 text-gray-400"></i>
+                                        Đơn mua
                                     </a>
                                 </li>
                             </ul>

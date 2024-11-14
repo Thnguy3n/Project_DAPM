@@ -17,5 +17,16 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long>, Order
     @Query("SELECT o FROM OrderEntity o WHERE o.userEntity.id = :userId")
     Optional<OrderEntity> findOrderByUserId(@Param("userId") Long userId);
     List<OrderEntity> findAllByStatus(String status);
+    @Query("SELECT MONTH(o.createdDate) AS month, YEAR(o.createdDate) AS year, SUM(oi.total) AS totalRevenue " +
+            "FROM OrderEntity o " +
+            "JOIN OrderItemEntity oi ON o.id = oi.orderEntity.id " +
+            "WHERE YEAR(o.createdDate) = :year " +
+            "AND (:month IS NULL OR MONTH(o.createdDate) = :month) " +
+            "AND (:status IS NULL OR o.status = :status) " +
+            "GROUP BY YEAR(o.createdDate), MONTH(o.createdDate) " +
+            "ORDER BY YEAR(o.createdDate), MONTH(o.createdDate)")
+    List<Object[]> getMonthlyRevenue(@Param("year") int year,
+                                     @Param("month") Integer month,
+                                     @Param("status") String status);
     Page<OrderEntity> findAll(Pageable pageable);
 }

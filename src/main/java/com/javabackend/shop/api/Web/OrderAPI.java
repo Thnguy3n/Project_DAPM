@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,10 +31,10 @@ public class OrderAPI {
     @Autowired
     private ModelMapper modelMapper;
     @PostMapping
-    public OrderDTO addOrder(@Valid @RequestBody OrderDTO orderDTO, @RequestParam Long cartId){
-        orderService.addOrder(orderDTO);
+    public String addOrder(@Valid @RequestBody OrderDTO orderDTO, @RequestParam Long cartId, @RequestParam String paymentMethod, HttpServletRequest req){
+        String paymentUrl = orderService.addOrder(orderDTO, paymentMethod, req);
         cartService.removeCartItem(cartId);
-        return orderDTO;
+        return paymentUrl;
     }
     @GetMapping("/{id}")
     public ResponseEntity<List<OrderItemDTO>> getOrderDetails(@PathVariable Long id) {

@@ -173,15 +173,15 @@
                                 </div>
                                 <div class="wd-check-payment">
                                     <div class="fieldset-radio mb_20">
-                                        <input type="radio" name="payment_method" class="tf-check" checked>
+                                        <input type="radio" name="payment_method" class="tf-check" value="VNPAY"
+                                               checked>
                                         <label>Thanh toán qua ví điện tử VNPAY
                                             <img style="max-width: 50px; max-height: 30px"
-                                                 src="images/payments/Logo-VNPAY-QR-1.webp"
-                                                 alt="">
+                                                 src="images/payments/Logo-VNPAY-QR-1.webp" alt="">
                                         </label>
                                     </div>
                                     <div class="fieldset-radio mb_20">
-                                        <input type="radio" name="payment_method" class="tf-check">
+                                        <input type="radio" name="payment_method" class="tf-check" value="COD">
                                         <label>Thanh toán khi nhận hàng</label>
                                     </div>
                                     <p class="text_black-2 mb_20">Dữ liệu cá nhân của bạn sẽ được sử dụng để xử lý đơn
@@ -201,7 +201,7 @@
                                 </div>
                                 <button type="button" id="debugSubmit" onclick="debugFormSubmit()"
                                         class="tf-btn radius-3 btn-fill btn-icon animate-hover-btn justify-content-center">
-                                    Đặt hàng
+                                    Thanh toán
                                 </button>
                             </div>
                         </div>
@@ -490,6 +490,7 @@
     }
 
     function debugFormSubmit() {
+        $('.error-message').remove();
         let isValid = true;
         if ($('#province').val() === "") {
             $('#province').after(`<span class="error-message" style="color:red; font-size: 0.875em; display: block; margin-top: 5px;">Vui lòng chọn Tỉnh/Thành phố</span>`);
@@ -529,20 +530,20 @@
             var cartId = $('.checkout-product-item').find('.cardId1').val();
             console.log(data);
             $.ajax({
-                url: '/api/order?cartId=' + cartId,
+                url: '/api/order?cartId=' + cartId+'&paymentMethod='+data.payment_method,
                 type: 'POST',
                 data: JSON.stringify(data),
                 contentType: 'application/json',
                 success: function (response) {
-                    Swal.fire({
-                        title: 'Thành công!',
-                        text: 'Đơn hàng của bạn đã được đặt thành công.',
-                        icon: 'success',
-                        confirmButtonText: 'OK',
-                        timer: 3000
-                    }).then(() => {
-                        window.location.href = "/trang-chu";
-                    });
+                    // Swal.fire({
+                    //     title: 'Thành công!',
+                    //     text: 'Đơn hàng của bạn đã được đặt thành công.',
+                    //     icon: 'success',
+                    //     confirmButtonText: 'OK',
+                    //     timer: 3000
+                    // }).then(() => {
+                        window.location.href = response;
+                    // });
                 },
                 error: function (error) {
                     if (error.status === 400 && error.responseJSON) {
@@ -559,10 +560,7 @@
                             text: 'Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.',
                             icon: 'error',
                             confirmButtonText: 'OK',
-                            timer: 5000
-                        }).then(() => {
-                            window.location.href = "/trang-chu";
-                        });
+                        })
                     }
                 }
             });

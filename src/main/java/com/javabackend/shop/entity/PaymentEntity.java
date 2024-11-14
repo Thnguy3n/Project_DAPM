@@ -17,19 +17,16 @@ public class PaymentEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_id")
-    private Long orderId;
-
-    @Column(name = "datepayment")
-    private Date datePayment;
-
     @Column(name = "methodpayment")
     private String methodPayment;
+
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "amount")
     private Double amount;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", insertable = false, updatable = false)
+    @JoinColumn(name = "order_id")
     private OrderEntity orderEntity;
 }

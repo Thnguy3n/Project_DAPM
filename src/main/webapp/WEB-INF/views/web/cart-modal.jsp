@@ -57,11 +57,12 @@
                                     </label>
                                 </div>
                                 <div class="tf-mini-cart-view-checkout">
-                                    <a href="view-cart.html"
+                                    <a href="#"
                                        class="tf-btn btn-outline radius-3 link w-100 justify-content-center">Xem giỏ
                                         hàng</a>
-                                    <a href="<c:url value="order"/>"
-                                       class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Thanh toán</span></a>
+                                    <a href="<c:url value="order"/>" id="orderBtn"
+                                       class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Đặt hàng</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -81,6 +82,7 @@
     <input type="hidden" name="User" id="userId" value="${user.id}">
 </div>
 <script>
+
     document.querySelector(".nav-cart a").addEventListener("click", function () {
         const userId = document.getElementById("userId").value;
 
@@ -88,10 +90,13 @@
             return new Intl.NumberFormat('vi-VN').format(amount);
         }
 
+
+
         fetch(`/api/cart/items?userId=${userId}`)
             .then(response => response.json())
             .then(cartData => {
                 const container = document.getElementById("cartItemsContainer");
+                const orderBtn = document.getElementById("orderBtn");
                 container.innerHTML = '';
 
                 let totalPrice = 0;
@@ -126,16 +131,31 @@
                 container.innerHTML += row;
                 document.getElementById("totalPriceDisplay").textContent = formatMoney(totalPrice) + ' VNĐ';
 
+                if (cartData.items.length === 0) {
+                    orderBtn.style.display = 'none';
+                } else {
+                    orderBtn.style.display = 'flex';
+                }
+
                 function updateCartTotal() {
                     let newTotalPrice = 0;
                     let newTotalItems = 0;
                     cartData.items.forEach((item, index) => {
-                        const quantity = parseInt(document.getElementById(`quantity1-` + index).value) || 1;
-                        newTotalPrice += (item.price - (item.price * item.discount / 100)) * quantity;
-                        newTotalItems += quantity;
+                        const quantityInput = document.getElementById(`quantity1-` + index);
+                        if (quantityInput) {
+                            const quantity = parseInt(quantityInput.value) || 1;
+                            newTotalPrice += (item.price - (item.price * item.discount / 100)) * quantity;
+                            newTotalItems += quantity;
+                        }
                     });
-                    document.querySelector(".count-box").textContent = newTotalItems;
-                    document.getElementById("totalPriceDisplay").textContent = formatMoney(newTotalPrice) + ' VNĐ';
+                    const countBox = document.querySelector(".count-box");
+                    const totalPriceDisplay = document.getElementById("totalPriceDisplay");
+                    if (countBox) {
+                        countBox.textContent = newTotalItems;
+                    }
+                    if (totalPriceDisplay) {
+                        totalPriceDisplay.textContent = formatMoney(newTotalPrice) + ' VNĐ';
+                    }
                 }
 
                 cartData.items.forEach((item, index) => {
@@ -175,9 +195,9 @@
                         }
                     });
 
+
                     quantityInput.addEventListener('input', updateItemTotalPrice);
                 });
-
                 document.querySelectorAll(".tf-mini-cart-remove").forEach(removeButton => {
                     removeButton.addEventListener('click', () => {
                         const cartItemId = removeButton.getAttribute("data-cart-item-id");
@@ -190,9 +210,12 @@
                         })
                             .then(response => {
                                 if (response.ok) {
+                                    console.log("Sản phẩm đã được xóa thành công.");
                                     const cartItemElement = removeButton.closest(".tf-mini-cart-item");
                                     cartItemElement.remove();
+                                    cartData.items = cartData.items.filter(item => item.id !== cartItemId);
                                     updateCartTotal();
+                                    window.location.reload();
                                 } else {
                                     console.error("Xóa sản phẩm không thành công.");
                                 }

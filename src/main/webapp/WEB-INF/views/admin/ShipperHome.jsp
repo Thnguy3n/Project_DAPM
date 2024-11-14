@@ -10,57 +10,20 @@
 <%@ page import="com.javabackend.shop.security.utils.SecurityUtils" %>
 <c:url var="orderListURL" value="/admin/order-list"/>
 <c:url var="orderAPI" value="/api/order"/>
-<style>
-    .tf-pagination-wrap {
-        display: flex;
-        list-style: none;
-        padding: 0;
-    }
 
-    .tf-pagination-list li {
-        margin: 0 5px;
-    }
-
-    .tf-pagination-list li.active a {
-        font-weight: bold;
-        color: #007bff;
-    }
-
-    .pagination-link {
-        text-decoration: none;
-        color: #333;
-        padding: 5px 10px;
-    }
-
-    .animate-hover-btn:hover {
-        color: #007bff;
-        transition: color 0.3s;
-    }
-</style>
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
-        <form:form modelAttribute="orderSearchRequest" id="listForm" method="GET" var="item">
+        <form:form modelAttribute="order" id="listForm" method="GET" var="item">
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                 <!-- Topbar Search -->
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
-                        <!-- Field Tìm Kiếm -->
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                               aria-label="Search" aria-describedby="basic-addon2" name="searchKeyword">
-
-                        <!-- Dropdown Chọn Trạng Thái Đơn Hàng -->
-                        <select class="form-control bg-light border-0 small ml-2" name="status"
-                                aria-label="Status">
-                            <option value="">Tất cả trạng thái</option>
-                            <option value="Chưa thanh toán">Chưa thanh toán</option>
-                            <option value="Đang xử lý">Đang xử lý</option>
-                            <option value="Đã giao hàng">Đã giao hàng</option>
-                        </select>
-
+                               aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit" id="btnSearchProduct">
+                            <button class="btn btn-primary" type="button" id="btnSearchProduct">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -143,12 +106,15 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <display:table name="orderPageContent" cellspacing="0" cellpadding="0" id="tableList"
+                            <display:table name="order" cellspacing="0" cellpadding="0" requestURI="${orderListURL}"
+                                           id="tableList"
                                            class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
-                                           style="margin: 3em 0 1.5em;">
+                                           style="margin: 3em 0 1.5em;"
+                            >
                                 <display:column title="<fieldset class='form-group'>
-                                <input type='checkbox' id='checkAll' class='check-box-element'>
-                                </fieldset>" class="center select-cell" headerClass="center select-cell">
+												        <input type='checkbox' id='checkAll' class='check-box-element'>
+												        </fieldset>" class="center select-cell"
+                                                headerClass="center select-cell">
                                     <fieldset>
                                         <input type="checkbox" name="checkList" value="${tableList.id}"
                                                id="checkbox_${tableList.id}" class="check-box-element"/>
@@ -162,40 +128,19 @@
                                 <display:column headerClass="text-left" property="address" title="Địa chỉ giao hàng"/>
                                 <display:column headerClass="text-left" property="createdDate" title="Ngày đặt"/>
                                 <display:column headerClass="text-left" property="status" title="Trạng thái"/>
+
                                 <display:column title="Thao tác">
                                     <button type="button" class="btn btn-xs btn-info" data-bs-toggle="modal"
                                             data-bs-target="#infoModal" onclick="loadOrderInfo(${tableList.id})">
                                         <i class="ace-icon fa fa-eye"></i>
                                     </button>
-                                    <security:authorize access="hasRole('MANAGER')">
-                                        <button class="btn btn-xs btn-danger" title="Xóa sản phẩm"
-                                                onclick="deleteOrder(${tableList.id})">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </security:authorize>
+                                    <button type="button" name="successful-delivery" class="btn btn-xs btn-primary"
+                                            style="font-size: 12px; margin-top: 5px;"
+                                            onclick="completeDelivery(${tableList.id})">
+                                        Hoàn tất giao hàng
+                                    </button>
                                 </display:column>
                             </display:table>
-
-                            <ul class="pagination">
-                                <c:if test="${currentPage > 0}">
-                                    <li class="page-item">
-                                        <a href="${pageContext.request.contextPath}/admin/order-list?page=${currentPage - 1}&size=${pageSize}"
-                                           class="page-link">&laquo;</a>
-                                    </li>
-                                </c:if>
-                                <c:forEach var="i" begin="0" end="${totalPages - 1}">
-                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                        <a href="${pageContext.request.contextPath}/admin/order-list?page=${i}&size=${pageSize}"
-                                           class="page-link">${i + 1}</a>
-                                    </li>
-                                </c:forEach>
-                                <c:if test="${currentPage < totalPages - 1}">
-                                    <li class="page-item">
-                                        <a href="${pageContext.request.contextPath}/admin/order-list?page=${currentPage + 1}&size=${pageSize}"
-                                           class="page-link">&raquo;</a>
-                                    </li>
-                                </c:if>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -226,6 +171,45 @@
     </div>
 </div>
 <script>
+    function completeDelivery(orderId) {
+    fetch(`${orderAPI}/` + orderId + '/complete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Trạng thái đơn hàng đã được cập nhật thành công.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                timer: 3000
+            }).then(() => {
+                window.location.href = "/admin/Shipper";
+            });
+        } else {
+            Swal.fire({
+                title: 'Thất bại!',
+                text: 'Đã có lỗi xảy ra khi cập nhật trạng thái đơn hàng. Vui lòng thử lại.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        Swal.fire({
+            title: 'Lỗi!',
+            text: 'Đã có lỗi xảy ra. Vui lòng thử lại sau.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+        });
+    });
+}
+
+
     function loadOrderInfo(id) {
         fetch(`${orderAPI}/` + id)
             .then(response => response.json())
@@ -257,42 +241,6 @@
                 document.getElementById("orderDetails").innerHTML = `<p>Không thể tải thông tin đơn hàng.</p>`;
                 document.getElementById("ordertotal").innerHTML = "";
             });
-    }
-
-    function deleteOrder(id) {
-        if (confirm("Bạn có chắc chắn muốn xóa đơn hàng này không?")) {
-            $.ajax({
-                type: "DELETE",
-                url: `${orderAPI}/` + id,
-                contentType: "application/json",
-                success: function (response) {
-                    Swal.fire({
-                        title: 'Thành công!',
-                        text: 'Đơn hàng của bạn đã được xóa thành công.',
-                        icon: 'success',
-                        confirmButtonText: 'OK',
-                        timer: 3000
-                    }).then(() => {
-                        window.location.href = "/admin/order-list";
-                    });
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log("Error Details:", textStatus, errorThrown);
-                    Swal.fire({
-                        title: 'Thất bại!',
-                        text: 'Đã có lỗi xảy ra khi xóa đơn hàng. Vui lòng thử lại.',
-                        icon: 'error',
-                        confirmButtonText: 'OK',
-                        timer: 5000
-                    }).then(() => {
-                        window.location.href = "/admin/order-list";
-                    });
-                }
-            });
-        } else {
-            console.log("Người dùng đã hủy xóa.");
-        }
-
     }
 
 

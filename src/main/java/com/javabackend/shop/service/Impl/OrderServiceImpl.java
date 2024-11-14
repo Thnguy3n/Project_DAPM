@@ -63,8 +63,14 @@ public class OrderServiceImpl implements IOrderService {
                 .sum());
         paymentRepository.save(paymentEntity);
         orderItemRepository.saveAll(orderItemEntities);
-        String paymentUrl = generateVnpayUrl(paymentEntity,req);
-        return paymentUrl;
+        if(paymentMethod.equals("VNPAY")) {
+            String paymentUrl = generateVnpayUrl(paymentEntity,req);
+            return paymentUrl;
+        }
+        else {
+            return "/payment_success";
+        }
+
     }
 
     @Override
@@ -77,11 +83,28 @@ public class OrderServiceImpl implements IOrderService {
         orderRepository.delete(orderEntity);
     }
 
+    @Override
+    public void updatePaymentStatus(Long orderId) {
+        PaymentEntity paymentEntity = paymentRepository.findPaymentEntitiesByOrderById(orderId);
+            paymentEntity.setStatus("Thanh toán thành công");
+            paymentRepository.save(paymentEntity);
+        OrderEntity orderEntity = orderRepository.findById(orderId).get();
+            orderEntity.setStatus("Đang xử lý");
+            orderRepository.save(orderEntity);
+    }
+
+    @Override
+    public void updateOrderStatus(Long orderId) {
+        OrderEntity orderEntity = orderRepository.findById(orderId).get();
+        orderEntity.setStatus("Đã giao hàng");
+        orderRepository.save(orderEntity);
+    }
+
     public String generateVnpayUrl(PaymentEntity paymentEntity, HttpServletRequest req) {
         try {
             String orderType = "other";
             long amount = (long) (paymentEntity.getAmount() * 100);
-            String vnp_TxnRef = VnpayConfig.getRandomNumber(8);
+            Long vnp_TxnRef = paymentEntity.getOrderEntity().getId();
             String vnp_IpAddr = VnpayConfig.getIpAddress(req);
             String vnp_TmnCode = VnpayConfig.vnp_TmnCode;
 
@@ -93,7 +116,7 @@ public class OrderServiceImpl implements IOrderService {
             vnp_Params.put("vnp_CurrCode", "VND");
             vnp_Params.put("vnp_BankCode", "NCB");
             vnp_Params.put("vnp_Locale", "vn");
-            vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
+            vnp_Params.put("vnp_TxnRef", vnp_TxnRef.toString());
             vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
             vnp_Params.put("vnp_ReturnUrl", VnpayConfig.vnp_ReturnUrl);
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);

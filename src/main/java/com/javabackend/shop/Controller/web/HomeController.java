@@ -39,6 +39,16 @@ public class HomeController {
         return mav;
 
     }
+    @RequestMapping(value = "/payment_success", method = RequestMethod.GET)
+    public ModelAndView paymentSuccessPage() {
+        ModelAndView mav = new ModelAndView("web/PaymentSuccessful");
+        return mav;
+    }
+    @RequestMapping(value = "/payment_fail", method = RequestMethod.GET)
+    public ModelAndView paymentFailPage() {
+        ModelAndView mav = new ModelAndView("web/PaymentFail");
+        return mav;
+    }
     @RequestMapping(value = "/product-category", method = RequestMethod.GET)
     public ModelAndView productCategoryPage(@ModelAttribute("product") ProductDTO productDTO) {
         ModelAndView mav = new ModelAndView("web/productCategory");

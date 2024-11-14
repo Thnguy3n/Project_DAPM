@@ -1,5 +1,6 @@
 package com.javabackend.shop.api.Web;
 
+import com.javabackend.shop.entity.OrderEntity;
 import com.javabackend.shop.entity.OrderItemEntity;
 import com.javabackend.shop.model.dto.OrderDTO;
 import com.javabackend.shop.model.dto.OrderItemDTO;
@@ -15,8 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController(value = "orderAPI")
@@ -36,6 +42,28 @@ public class OrderAPI {
         cartService.removeCartItem(cartId);
         return paymentUrl;
     }
+    @GetMapping("/vnpay_return")
+    public void handleVnpayReturn(@RequestParam("vnp_TxnRef") String txnRef,
+                                  @RequestParam("vnp_ResponseCode") String responseCode,
+                                  HttpServletResponse response) throws IOException {
+        if ("00".equals(responseCode)) {
+            Long orderId = Long.parseLong(txnRef);
+            orderService.updatePaymentStatus(orderId);
+            response.sendRedirect("http://localhost:8083/payment_success");
+        } else {
+            response.sendRedirect("http://localhost:8083/payment_fail");
+        }
+    }
+
+    @PostMapping("/{id}/complete")
+    public ResponseEntity<Map<String, Object>> completeOrder(@PathVariable Long id) {
+        orderService.updateOrderStatus(id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "Trạng thái đơn hàng đã được cập nhật thành công.");
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<List<OrderItemDTO>> getOrderDetails(@PathVariable Long id) {
         List<OrderItemEntity> orderItems = orderItemRepository.findOrderItemEntitiesByOrderId(id);

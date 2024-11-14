@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/common/tablist.jsp"%>
+<%@include file="/common/tablist.jsp" %>
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -16,39 +16,47 @@
         </div>
         <div class="sidebar-brand-text mx-3">Admin <sup>2</sup></div>
     </a>
+    <security:authorize access="hasAnyRole('MANAGER', 'STAFF')">
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/admin/product-list"/>">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Quản lý sản phẩm </span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/admin/user-list"/>">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Quản lý tài khoản  </span></a>
+        </li>
+        <li class="nav-item">
+            <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/category-list"/>">
+                <i class="fas fa-fw fa-list-alt"></i>
+                <span>Quản lý danh mục sản phẩm  </span></a>
+        </li>
+        <li class="nav-item">
+            <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/supplier-list"/>">
+                <i class="fas fa-fw fa-user-friends"></i>
+                <span>Quản lý nhà cung cấp  </span></a>
+        </li>
+        <li class="nav-item">
+            <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/order-list"/>">
+                <i class="fas fa-fw fa-notes-medical"></i>
+                <span>Quản lý hóa đơn  </span></a>
+        </li>
+    </security:authorize>
 
     <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/product-list"/>">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Quản lý sản phẩm </span></a>
+        <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/Shipper"/>">
+            <i class="fas fa-fw fa-shipping-fast"></i>
+            <span>Nhận Đơn giao hàng </span></a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="<c:url value="/admin/user-list"/>">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Quản lý tài khoản  </span></a>
-    </li>
-    <li class="nav-item">
-        <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/category-list"/>" >
-            <i class="fas fa-fw fa-list-alt"></i>
-            <span>Quản lý danh mục sản phẩm  </span></a>
-    </li>
-    <li class="nav-item">
-        <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/supplier-list"/>" >
-            <i class="fas fa-fw fa-user-friends"></i>
-            <span>Quản lý nhà cung cấp  </span></a>
-    </li>
-    <li class="nav-item">
-        <a style="width: 15rem" class="nav-link" href="<c:url value="/admin/order-list"/>" >
-            <i class="fas fa-fw fa-notes-medical"></i>
-            <span>Quản lý hóa đơn  </span></a>
-    </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline " >
-        <button  class="rounded-circle border-0" id="sidebarToggle" ></button>
+    <div class="text-center d-none d-md-inline ">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
 

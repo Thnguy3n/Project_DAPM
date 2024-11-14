@@ -9,4 +9,6 @@ import java.util.List;
 public interface IOrderService {
     String addOrder(OrderDTO orderDTO, String paymentMethod, HttpServletRequest req);
     void deleteOrder(Long Id);
+    void updatePaymentStatus(Long orderId);
+    void updateOrderStatus(Long orderId);
 }

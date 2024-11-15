@@ -37,10 +37,10 @@ public class OrderAPI {
     @Autowired
     private ModelMapper modelMapper;
     @PostMapping
-    public String addOrder(@Valid @RequestBody OrderDTO orderDTO, @RequestParam Long cartId, @RequestParam String paymentMethod, HttpServletRequest req){
-        String paymentUrl = orderService.addOrder(orderDTO, paymentMethod, req);
+    public ResponseEntity<String> addOrder(@Valid @RequestBody OrderDTO orderDTO, @RequestParam Long cartId, @RequestParam String paymentMethod, HttpServletRequest req){
+//        String paymentUrl = orderService.addOrder(orderDTO, paymentMethod, req);
         cartService.removeCartItem(cartId);
-        return paymentUrl;
+        return orderService.addOrder(orderDTO, paymentMethod, req);
     }
     @GetMapping("/vnpay_return")
     public void handleVnpayReturn(@RequestParam("vnp_TxnRef") String txnRef,

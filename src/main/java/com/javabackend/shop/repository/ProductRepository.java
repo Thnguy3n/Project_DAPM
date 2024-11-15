@@ -11,4 +11,5 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<ProductEntity, Long>, ProductRepositoryCustom {
     List<ProductEntity> findProductEntitiesByDiscount(Integer discount);
+    long countAllByDeleted(int deleted);
 }

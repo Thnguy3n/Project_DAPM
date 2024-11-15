@@ -13,6 +13,7 @@ import com.javabackend.shop.security.utils.SecurityUtils;
 import com.javabackend.shop.service.IOrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,7 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private PaymentRepository paymentRepository;
     @Override
-    public String addOrder(OrderDTO orderDTO, String paymentMethod, HttpServletRequest req) {
+    public ResponseEntity<String> addOrder(OrderDTO orderDTO, String paymentMethod, HttpServletRequest req) {
         OrderEntity orderEntity = modelMapper.map(orderDTO, OrderEntity.class);
         Long userId = SecurityUtils.getPrincipal().getId();
         orderEntity.setUserEntity(userRepository.findById(userId).get());
@@ -52,7 +53,16 @@ public class OrderServiceImpl implements IOrderService {
             ProductEntity productEntity = productRepository.findById(orderItemDTO.getProductId()).get();
             OrderItemEntity orderItemEntity = modelMapper.map(orderItemDTO, OrderItemEntity.class);
             orderItemEntity.setProductEntity(productEntity);
+            if (productEntity.getInventory() < orderItemEntity.getQuantity()) {
+                orderItemRepository.deleteAll(orderItemEntities);
+                paymentRepository.delete(paymentEntity);
+                orderRepository.delete(orderEntity);
+                return ResponseEntity.badRequest().body("Sản phẩm không đủ số lượng trong kho");
+            }
             productEntity.setInventory(productEntity.getInventory()-orderItemEntity.getQuantity());
+            if(productEntity.getInventory()== 0 ){
+                productEntity.setDeleted(0);
+            }
             orderItemEntity.setOrderEntity(orderEntity);
             paymentEntity.setAmount(orderItemEntity.getTotal());
             orderItemEntities.add(orderItemEntity);
@@ -65,10 +75,10 @@ public class OrderServiceImpl implements IOrderService {
         orderItemRepository.saveAll(orderItemEntities);
         if(paymentMethod.equals("VNPAY")) {
             String paymentUrl = generateVnpayUrl(paymentEntity,req);
-            return paymentUrl;
+            return ResponseEntity.ok(paymentUrl);
         }
         else {
-            return "/payment_success";
+            return ResponseEntity.ok("/payment_success");
         }
 
     }

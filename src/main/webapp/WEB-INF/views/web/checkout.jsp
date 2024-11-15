@@ -557,7 +557,7 @@
                     } else {
                         Swal.fire({
                             title: 'Thất bại!',
-                            text: 'Đã có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.',
+                            text: "Sản phẩm không đủ số lượng trong kho",
                             icon: 'error',
                             confirmButtonText: 'OK',
                         })

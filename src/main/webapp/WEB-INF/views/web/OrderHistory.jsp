@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -14,26 +16,30 @@
                 <div class="tf-cart-footer-inner">
                     <div class="tf-page-cart-checkout widget-wrap-checkout">
                         <ul class="wrap-checkout-product">
-                            <li class="checkout-product-item">
-                                <figure class="img-product">
-                                    <img src="images/products/white-2.jpg" alt="product">
-                                    <span class="quantity" id="quantity">12</span>
-                                </figure>
-                                <div class="content">
-                                    <div class="info">
-                                        <p class="name">ádfbhj</p>
-                                        <span class="variant" id="size">Size: S</span>
-                                        <span class="variant-picker-item">| Giá: 222222222222</span>
-                                    </div>
-                                    <span class="price" style="display: grid">
+                            <c:forEach items="${orderEntityList}" var="item">
+                                <c:forEach items="${item.orderItemEntities}" var="orderItem">
+                                    <li class="checkout-product-item">
+                                    <figure class="img-product">
+                                        <img src="/repository${orderItem.productEntity.image}" alt="product">
+                                        <span class="quantity" id="quantity">${orderItem.quantity}</span>
+                                    </figure>
+                                    <div class="content">
+                                        <div class="info">
+                                            <p class="name">${orderItem.productEntity.title}</p>
+                                            <span class="variant" id="size">Size: ${orderItem.size}</span>
+                                            <span class="variant-picker-item">| Giá: <fmt:formatNumber value="${orderItem.price}" pattern="#,###"/> VNĐ</span>
+                                        </div>
+                                        <span class="price" style="display: grid">
                                                  <span class="price" style="font-weight: 600;
-                                                                     ">Thành giá: 22222 VNĐ</span>
+                                                                     ">Thành giá: <fmt:formatNumber value="${orderItem.total}" pattern="#,###"/> VNĐ</span>
                                                  <span class="price" style="font-weight: 600;
-                                                                     color: #00ba00;">Trạng thái: Đã chuyen
+                                                                     color: #00ba00;">Trạng thái: ${item.status}
                                                  </span>
                                     </span>
-                                </div>
-                            </li>
+                                    </div>
+                                </li>
+                                </c:forEach>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>

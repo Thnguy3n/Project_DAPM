@@ -1,7 +1,9 @@
 package com.javabackend.shop.Controller.web;
+import com.javabackend.shop.entity.OrderEntity;
 import com.javabackend.shop.model.dto.CategoryDTO;
 import com.javabackend.shop.model.dto.ProductDTO;
 import com.javabackend.shop.model.dto.UserDTO;
+import com.javabackend.shop.repository.OrderRepository;
 import com.javabackend.shop.security.utils.SecurityUtils;
 import com.javabackend.shop.service.Impl.CategoryServiceImpl;
 import com.javabackend.shop.service.Impl.ProductServiceImpl;
@@ -23,6 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Optional;
 
 @Controller(value = "homeControllerOfWeb")
 
@@ -31,6 +35,8 @@ public class HomeController {
     private ProductServiceImpl productService;
     @Autowired
     private CategoryServiceImpl categoryService;
+    @Autowired
+    private OrderRepository orderRepository;
     @RequestMapping(value = "/trang-chu", method = RequestMethod.GET)
     public ModelAndView homePage() {
         ModelAndView mav = new ModelAndView("home");
@@ -42,6 +48,13 @@ public class HomeController {
     @RequestMapping(value = "/OrderHistory", method = RequestMethod.GET)
     public ModelAndView OrderHistory() {
         ModelAndView mav = new ModelAndView("web/OrderHistory");
+        if (SecurityContextHolder.getContext().getAuthentication() != null &&
+                SecurityContextHolder.getContext().getAuthentication().isAuthenticated() &&
+                !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+            long userId = SecurityUtils.getPrincipal().getId();
+            List<OrderEntity> orderEntityList = orderRepository.findOrderByUserId(userId);
+            mav.addObject("orderEntityList", orderEntityList);
+        }
         return mav;
     }
     @RequestMapping(value = "/payment_success", method = RequestMethod.GET)
